@@ -1,0 +1,126 @@
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+.nav {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: solid grey 1px;
+}
+.nav-container {
+  padding-top: 10px;
+  background-color: transparent;
+  z-index: 100;
+  width: 1100px;
+  margin: 0 auto;
+}
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+.nav-top-l > span {
+  font-size: 13px;
+  margin-right: 15px;
+  color: #aaa;
+}
+.nav-top-l > span:last-child {
+  margin-right: 0;
+}
+.nav-top-r {
+  text-align: right;
+}
+.nav-top-r > span {
+  font-size: 13px;
+  margin-left: 15px;
+  color: #aaa;
+}
+.nav-top-r > span:first-child {
+  margin-left: 0;
+}
+.nav-text {
+  font-size: 18px;
+  padding: 15px 30px;
+}
+.nav-main {
+  padding: 10px 0 0 25px;
+}
+.nav-icon {
+  margin-right: 15px;
+}
+.white {
+  color: #fff;
+}
+.gnb {
+  align-items: center;
+}
+.back-url {
+  background: url("../assets/background.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  z-index: 0;
+}
+.back-layer {
+  backdrop-filter: blur(20px);
+  height: 2000px;
+  background: rgba(0, 0, 0, 0.8);
+}
+.card-container {
+  z-index: 100;
+  width: 1100px;
+  margin: 0 auto;
+  padding-top: 70px;
+}
+.box {
+  color: #fff;
+  font-size: 15px;
+  /* border-bottom: solid #aaa 2px; */
+  margin: 20px;
+  text-align: center;
+  position: relative;
+}
+.more-movie {
+  font-size: 15px;
+  color: #aaa;
+  position: absolute;
+  right: -20px;
+  top: 5px;
+}
+.image {
+  border-radius: 5px;
+  width: 245px;
+  height: 352px;
+  opacity: 80%;
+}
+.button-flex {
+  display: flex;
+  height: 35px;
+  margin-top: 2px;
+}
+.like-btn {
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: black;
+  border: solid grey 1px;
+  margin-right: 5px;
+}
+.heart {
+  margin-left: 6px;
+  font-size: 15px;
+}
+.reserve-btn {
+  width: 65%;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: rgb(34, 138, 135);
+  color: white;
+  border: none;
+}
+.box-office > div {
+  margin-right: 10px;
+}
+.box-office > div:last-child {
+  margin-right: 0;
+}
