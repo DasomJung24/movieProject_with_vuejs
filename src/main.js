@@ -9,13 +9,13 @@ import {
   faBars,
   faCalendarAlt,
   faUser,
-  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 Vue.use(VueRouter);
 
-library.add(faSearch, faBars, faCalendarAlt, faUser, faHeart);
+library.add(faSearch, faBars, faCalendarAlt, faUser, farHeart);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
