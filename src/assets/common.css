@@ -39,7 +39,13 @@
 }
 .nav-text {
   font-size: 18px;
-  padding: 15px 30px;
+  padding: 15px 0 14px 0;
+  margin: 0 30px 1px 30px;
+}
+.nav-text:hover {
+  cursor: pointer;
+  margin-bottom: 0;
+  border-bottom: solid #fff 1px;
 }
 .nav-main {
   padding: 10px 0 0 25px;
@@ -53,18 +59,18 @@
 .gnb {
   align-items: center;
 }
-.back-url {
+.backUrl {
   background: url("../assets/background.jpeg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   z-index: 0;
 }
-.back-layer {
+.backLayer {
   backdrop-filter: blur(20px);
   height: 2000px;
   background: rgba(0, 0, 0, 0.8);
 }
-.card-container {
+.main-container {
   z-index: 100;
   width: 1100px;
   margin: 0 auto;
@@ -90,6 +96,14 @@
   width: 245px;
   height: 352px;
   opacity: 80%;
+}
+.img-num {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  color: #fff;
+  font-style: oblique;
+  text-shadow: 3px 3px 2px #666;
 }
 .button-flex {
   display: flex;
@@ -123,4 +137,38 @@
 }
 .box-office > div:last-child {
   margin-right: 0;
+}
+.bottom-bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 25px 0;
+  margin-top: 50px;
+  background: rgba(0, 0, 0, 0.4);
+}
+.movie-input {
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  color: #fff;
+}
+.movie-input:focus {
+  outline: none;
+}
+.bottom-bar > div {
+  width: 100%;
+  text-align: center;
+  border-right: solid #aaa 1px;
+}
+.bottom-bar > div:last-child {
+  border-right: none;
+}
+.movie-top {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+.movie-top > div {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
 }
