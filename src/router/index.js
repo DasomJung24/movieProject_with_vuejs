@@ -7,7 +7,20 @@ const routes = [
   {
     path: "/",
     name: "Main",
+    redirect: "/",
     component: () => import("../components/layouts/Layout.vue"),
+    children: [
+      {
+        path: "/",
+        name: "MainList",
+        component: () => import("../views/Main.vue"),
+      },
+      {
+        path: "/movie",
+        name: "MovieList",
+        component: () => import("../views/movies/MovieList.vue"),
+      },
+    ],
   },
 ];
 
