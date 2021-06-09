@@ -3,6 +3,8 @@ import store from "./store";
 import router from "./router";
 import VueRouter from "vue-router";
 import App from "./App.vue";
+import VueMoment from 'vue-moment'
+import * as filters from './common/filters'
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faSearch,
@@ -19,6 +21,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 Vue.use(VueRouter);
+Vue.use(VueMoment)
 
 library.add(
   faSearch,
@@ -34,6 +37,10 @@ library.add(
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
+
+Object.keys(filters).forEach(function (key) {
+  Vue.filter(key, filters[key])
+})
 
 new Vue({
   store,

@@ -32,6 +32,17 @@
         />
       </div>
     </div>
+    <MovieList />
   </div>
 </template>
-<script></script>
+<script>
+import MovieList from "@/components/cards/MovieListCard.vue";
+export default {
+  data() {
+    return {};
+  },
+  components: {
+    MovieList,
+  },
+};
+</script>

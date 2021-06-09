@@ -2,7 +2,7 @@
   <div>
     <div class="box">
       <div>
-        <span style="border-bottom: 1px solid #aaa; padding-bottom: 5px;"
+        <span style="border-bottom: 2px solid #595959; padding-bottom: 5px; font-size: 16px;"
           >박스오피스</span
         >
       </div>
