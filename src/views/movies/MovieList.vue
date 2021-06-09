@@ -39,10 +39,22 @@
 import MovieList from "@/components/cards/MovieListCard.vue";
 export default {
   data() {
-    return {};
+    return {
+      page: parseInt(this.$route.query.page) || 1,
+      perPage: parseInt(this.$route.query.per_page) || 20,
+      total: 0
+    };
   },
   components: {
     MovieList,
   },
+  created () {
+    this.getList()
+  },
+  methods: {
+    async getList () {
+
+    }
+  }
 };
 </script>
