@@ -287,3 +287,13 @@ input:checked + .slider::before {
   align-items: center;
   justify-content: center;
 }
+.more-btn {
+  width: 100%;
+  margin-top: 40px;
+  /*margin-bottom: 80px;*/
+  border: 1px solid #ddd;
+  background-color: #fff;
+  padding: 9px 0;
+  cursor: pointer;
+  font-size: 15px;
+}

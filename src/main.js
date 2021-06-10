@@ -13,7 +13,8 @@ import {
   faCalendarAlt,
   faUser,
   faFilm,
-  faTicketAlt
+  faTicketAlt,
+  faChevronDown
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faHeart as farHeart,
@@ -32,7 +33,8 @@ library.add(
   farHeart,
   farCalendar,
   faFilm,
-  faTicketAlt
+  faTicketAlt,
+  faChevronDown
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

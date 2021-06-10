@@ -2,7 +2,7 @@
   <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px 60px;">
     <div v-for="(item, index) in movies" :key="item.id">
       <div style="position: relative;">
-        <img :src="item.img" width="230px">
+        <img :src="item.image" width="230px">
         <div class="img-num">
           <h1>{{ index + 1 }}</h1>
         </div>

@@ -16,7 +16,7 @@
         </label>
         <span style="margin-right: 20px;">개봉작만</span>
         <span
-          ><span style="font-weight: bold;">100</span>개의 영화가
+          ><span style="font-weight: bold;">{{ total }}</span>개의 영화가
           검색되었습니다.</span
         >
       </div>
@@ -32,7 +32,10 @@
         />
       </div>
     </div>
-    <MovieList :movies="movies"/>
+    <div style="margin-bottom: 80px;">
+      <MovieList :movies="movies"/>
+      <button v-if="page" @click="moreMovie" class="more-btn">더보기 <font-awesome-icon icon="chevron-down" size="1x" color="gray" /></button>
+    </div>
   </div>
 </template>
 <script>
@@ -40,8 +43,8 @@ import MovieList from '@/components/cards/MovieListCard.vue'
 export default {
   data () {
     return {
-      page: parseInt(this.$route.query.page) || 1,
-      perPage: parseInt(this.$route.query.per_page) || 20,
+      page: 1,
+      perPage: 20,
       total: 0,
       movies: []
     }
@@ -52,13 +55,13 @@ export default {
   created () {
     this.getList()
   },
-  watch: {
-    '$route.query' (query) {
-      this.page = parseInt(query.page) || 1
-      this.perPage = parseInt(query.per_page) || 10
-      this.getList()
-    }
-  },
+  // watch: {
+  //   '$route.query' (query) {
+  //     this.page = parseInt(query.page) || 1
+  //     this.perPage = parseInt(query.per_page) || 10
+  //     this.getList()
+  //   }
+  // },
   methods: {
     async getList () {
       const params = {
@@ -67,7 +70,11 @@ export default {
       }
       const { data } = await this.axios.get('movies', { params })
       this.total = data.count
-      this.movies = data.results
+      this.movies.push.apply(this.movies, data.results)
+      this.page = data.next
+    },
+    moreMovie () {
+      this.getList()
     }
   }
 }
