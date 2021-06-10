@@ -1,6 +1,6 @@
 <template>
   <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px 60px;">
-    <div v-for="(item, index) in data" :key="item.id">
+    <div v-for="(item, index) in movies" :key="item.id">
       <div style="position: relative;">
         <img :src="item.img" width="230px">
         <div class="img-num">
@@ -37,12 +37,13 @@
 </template>
 <script>
 export default {
+  props: { movies: Array },
   data () {
     return {
       data: [
         {
           id: 1,
-          img: "https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg",
+          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
           title: '크루엘라',
           audience_rating: '12세관람가',
           ticketing_rate: '15.2',
@@ -51,7 +52,7 @@ export default {
         },
         {
           id: 2,
-          img: "https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg",
+          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
           title: '크루엘라',
           audience_rating: '15세관람가',
           ticketing_rate: '15.2',
@@ -60,7 +61,7 @@ export default {
         },
         {
           id: 3,
-          img: "https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg",
+          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
           title: '크루엘라',
           audience_rating: '전체관람가',
           ticketing_rate: '15.2',
@@ -69,7 +70,7 @@ export default {
         },
         {
           id: 4,
-          img: "https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg",
+          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
           title: '크루엘라',
           audience_rating: '청소년관람불가',
           ticketing_rate: '15.2',
@@ -78,7 +79,7 @@ export default {
         },
         {
           id: 5,
-          img: "https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg",
+          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
           title: '크루엘라',
           audience_rating: '12세관람가',
           ticketing_rate: '15.2',
@@ -87,7 +88,7 @@ export default {
         },
         {
           id: 6,
-          img: "https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg",
+          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
           title: '크루엘라',
           audience_rating: '12세관람가',
           ticketing_rate: '15.2',

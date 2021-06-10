@@ -12,12 +12,12 @@
 </template>
 <script>
 export default {
-  name: "Layout",
-  data() {
-    return {};
+  name: 'Layout',
+  data () {
+    return {}
   },
   components: {
-    Nav: () => import("@/components/layouts/Nav.vue"),
-  },
-};
+    Nav: () => import('@/components/layouts/Nav.vue')
+  }
+}
 </script>

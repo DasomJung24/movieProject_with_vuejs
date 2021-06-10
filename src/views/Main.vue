@@ -35,13 +35,13 @@
   </div>
 </template>
 <script>
-import MainMovie from "@/components/cards/MainCard.vue";
+import MainMovie from '@/components/cards/MainCard.vue'
 export default {
-  data() {
-    return {};
+  data () {
+    return {}
   },
   components: {
-    MainMovie,
-  },
-};
+    MainMovie
+  }
+}
 </script>

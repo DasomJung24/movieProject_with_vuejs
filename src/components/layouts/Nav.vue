@@ -65,10 +65,10 @@
 </template>
 <script>
 export default {
-  name: "Nav",
-  data() {
-    return {};
+  name: 'Nav',
+  data () {
+    return {}
   },
-  methods: {},
-};
+  methods: {}
+}
 </script>

@@ -32,29 +32,43 @@
         />
       </div>
     </div>
-    <MovieList />
+    <MovieList :movies="movies"/>
   </div>
 </template>
 <script>
-import MovieList from "@/components/cards/MovieListCard.vue";
+import MovieList from '@/components/cards/MovieListCard.vue'
 export default {
-  data() {
+  data () {
     return {
       page: parseInt(this.$route.query.page) || 1,
       perPage: parseInt(this.$route.query.per_page) || 20,
-      total: 0
-    };
+      total: 0,
+      movies: []
+    }
   },
   components: {
-    MovieList,
+    MovieList
   },
   created () {
     this.getList()
   },
+  watch: {
+    '$route.query' (query) {
+      this.page = parseInt(query.page) || 1
+      this.perPage = parseInt(query.per_page) || 10
+      this.getList()
+    }
+  },
   methods: {
     async getList () {
-
+      const params = {
+        page: this.page,
+        per_page: this.perPage
+      }
+      const { data } = await this.axios.get('movies', { params })
+      this.total = data.count
+      this.movies = data.results
     }
   }
-};
+}
 </script>
