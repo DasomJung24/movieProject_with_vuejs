@@ -188,6 +188,7 @@
 .movie-tab > li {
   list-style: none;
   width: 100%;
+  cursor: pointer;
 }
 .movie-tab > li.active {
   color: #483d8b;
@@ -212,6 +213,9 @@
   width: 200px;
   border: 1px solid #ddd;
   font-size: 15px;
+}
+.title-search:focus {
+  outline: none;
 }
 .switch {
   position: relative;

@@ -2,16 +2,16 @@
   <div>
     <h1 style="font-weight: 500">전체영화</h1>
     <ul class="movie-tab">
-      <li class="active">박스오피스</li>
-      <li>상영예정작</li>
-      <li>특별상영</li>
-      <li>필름소사이어티</li>
-      <li>클래식소사이어티</li>
+      <li @click="setActive('box_office')" :class="{active: isActive('box_office')}">박스오피스</li>
+      <li @click="setActive('not_open')" :class="{active: isActive('not_open')}">상영예정작</li>
+      <li @click="setActive('special')" :class="{active: isActive('special')}">특별상영</li>
+      <li @click="setActive('film')" :class="{active: isActive('film')}">필름소사이어티</li>
+      <li @click="setActive('classic')" :class="{active: isActive('classic')}">클래식소사이어티</li>
     </ul>
     <div class="tab-search">
       <div style="padding: 5px;">
         <label class="switch">
-          <input type="checkbox" />
+          <input type="checkbox" @click="changeIsOpen" />
           <span class="slider round"></span>
         </label>
         <span style="margin-right: 20px;">개봉작만</span>
@@ -24,17 +24,20 @@
         <input
           class="title-search"
           placeholder="영화명 검색"
+          v-model="title"
+          v-on:keyup.enter="searchTitle"
         /><font-awesome-icon
-          style="position: absolute; top: 10; right: 10;"
+          style="position: absolute; top: 10; right: 10; cursor: pointer;"
           icon="search"
           size="1x"
           color="grey"
+          @click="searchTitle"
         />
       </div>
     </div>
     <div style="margin-bottom: 80px;">
       <MovieList :movies="movies"/>
-      <button v-if="page" @click="moreMovie" class="more-btn">더보기 <font-awesome-icon icon="chevron-down" size="1x" color="gray" /></button>
+      <button v-if="nextPage" @click="moreMovie" class="more-btn">더보기 <font-awesome-icon icon="chevron-down" size="1x" color="gray" /></button>
     </div>
   </div>
 </template>
@@ -46,7 +49,11 @@ export default {
       page: 1,
       perPage: 20,
       total: 0,
-      movies: []
+      movies: [],
+      title: '',
+      isOpen: false,
+      activeItem: 'box_office',
+      nextPage: null
     }
   },
   components: {
@@ -55,26 +62,59 @@ export default {
   created () {
     this.getList()
   },
-  // watch: {
-  //   '$route.query' (query) {
-  //     this.page = parseInt(query.page) || 1
-  //     this.perPage = parseInt(query.per_page) || 10
-  //     this.getList()
-  //   }
-  // },
   methods: {
     async getList () {
       const params = {
         page: this.page,
-        per_page: this.perPage
+        per_page: this.perPage,
+        is_open: this.isOpen,
+        active_type: this.activeItem
       }
       const { data } = await this.axios.get('movies', { params })
       this.total = data.count
       this.movies.push.apply(this.movies, data.results)
-      this.page = data.next
+      this.nextPage = data.next
     },
     moreMovie () {
+      this.page += 1
       this.getList()
+    },
+    async searchTitle () {
+      const params = {
+        page: this.page,
+        per_page: this.perPage,
+        title: this.title
+      }
+      const { data } = await this.axios.get('movies', { params })
+      this.total = data.count
+      this.movies = data.results
+    },
+    async changeIsOpen () {
+      const params = {
+        page: this.page,
+        per_page: this.perPage
+      }
+      this.isOpen = !this.isOpen
+      params.is_open = this.isOpen
+      const { data } = await this.axios.get('movies', { params })
+      this.total = data.count
+      this.movies = data.results
+    },
+    async setActive (val) {
+      this.activeItem = val
+      this.page = 1
+      const params = {
+        page: this.page,
+        per_page: this.perPage,
+        active_type: this.activeItem
+      }
+      const { data } = await this.axios.get('movies', { params })
+      this.total = data.count
+      this.movies = data.results
+      this.nextPage = data.next
+    },
+    isActive (val) {
+      return this.activeItem === val
     }
   }
 }
