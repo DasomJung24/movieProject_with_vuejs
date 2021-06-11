@@ -10,3 +10,11 @@ export function toKstDate (value) {
     return null
   }
 }
+
+export function titleLength (value) {
+  if (value.length > 12) {
+    value = value.slice(0, 12)
+    return value + '...'
+  }
+  return value
+}

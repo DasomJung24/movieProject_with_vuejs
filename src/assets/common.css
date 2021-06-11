@@ -6,10 +6,12 @@
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
   border-bottom: solid #4d4d4d 1px;
+  position: relative;
 }
 .nav {
   width: 100%;
   border-bottom: solid #483d8b 1px;
+  position: relative;
 }
 .nav-container {
   padding-top: 19px;
@@ -58,6 +60,25 @@
 }
 .nav-icon {
   margin-right: 15px;
+}
+.nav-bar {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  color: #fff;
+}
+.movie-bar {
+  display: flex;
+  padding: 10px 0;
+}
+.movie-bar > div {
+  margin-right: 20px;
+}
+.movie-bar > div:last-child {
+  margin-right: 0;
+}
+.movie-bar > div:first-child {
+  margin-left: 150px;
 }
 .white {
   color: #fff;
@@ -300,4 +321,7 @@ input:checked + .slider::before {
   padding: 9px 0;
   cursor: pointer;
   font-size: 15px;
+}
+span.order {
+  font-weight: bold;
 }

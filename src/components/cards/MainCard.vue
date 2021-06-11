@@ -6,6 +6,7 @@
         <div class="img-num">
           <h1>{{ index + 1 }}</h1>
         </div>
+        <div style="position: absolute; color: #fff; width: 100%; height: 100%; z-index: 100000; top: 0">3333</div>
       </div>
       <div class="button-flex">
         <button class="like-btn">

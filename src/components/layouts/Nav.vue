@@ -19,11 +19,23 @@
             <font-awesome-icon icon="search" size="lg" />
           </div>
           <div class="space-between">
-            <span class="nav-text" @click="$router.push({ name: 'MovieList' })"
+            <span
+                class="nav-text"
+                @click="$router.push({ name: 'MovieList' })"
+                @mouseover="setProps('movie')"
+                @mouseout="props = null"
               >영화</span
             >
-            <span class="nav-text">예매</span>
-            <span class="nav-text">극장</span>
+            <span
+                class="nav-text"
+                @mouseover="setProps('reservation')"
+                @mouseout="props = null"
+            >예매</span>
+            <span
+                class="nav-text"
+                @mouseover="setProps('theater')"
+                @mouseout="props = null"
+            >극장</span>
           </div>
         </div>
       </div>
@@ -50,9 +62,17 @@
           v-bind:class="{ white: this.$route.name === 'MainList' }"
         >
           <div class="space-between">
-            <span class="nav-text">이벤트</span>
+            <span
+                class="nav-text"
+                @mouseover="setProps('event')"
+                @mouseout="props = null"
+            >이벤트</span>
             <span class="nav-text">스토어</span>
-            <span class="nav-text">혜택</span>
+            <span
+                class="nav-text"
+                @mouseover="setProps('gift')"
+                @mouseout="props = null"
+            >혜택</span>
           </div>
           <div style="margin-left: 50px;">
             <font-awesome-icon class="nav-icon" icon="calendar-alt" size="lg" />
@@ -61,14 +81,28 @@
         </div>
       </div>
     </div>
+    <NavBarComponent :data="props"/>
   </div>
 </template>
 <script>
+import NavBarComponent from './NavBar.vue'
 export default {
   name: 'Nav',
-  data () {
-    return {}
+  components: {
+    NavBarComponent
   },
-  methods: {}
+  data () {
+    return {
+      props: ''
+    }
+  },
+  comments: {
+    NavBarComponent
+  },
+  methods: {
+    setProps (val) {
+      this.props = val
+    }
+  }
 }
 </script>

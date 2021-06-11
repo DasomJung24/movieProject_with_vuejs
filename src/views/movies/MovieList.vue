@@ -10,11 +10,23 @@
     </ul>
     <div class="tab-search">
       <div style="padding: 5px;">
-        <label class="switch">
+        <label class="switch" v-if="activeItem !== 'not_open'">
           <input type="checkbox" @click="changeIsOpen" />
           <span class="slider round"></span>
         </label>
-        <span style="margin-right: 20px;">개봉작만</span>
+        <span
+            @click="setOrder('date')"
+            :class="{order: isOrder('date')}"
+            v-if="activeItem === 'not_open'"
+            style="padding-right: 10px; border-right: 1px solid #ddd; cursor: pointer;"
+        >개봉일순</span>
+        <span
+            @click="setOrder('string')"
+            :class="{order: isOrder('string')}"
+            v-if="activeItem === 'not_open'"
+            style="padding-left: 10px; margin-right: 30px; cursor: pointer;"
+        >가나다순</span>
+        <span v-if="activeItem !== 'not_open'" style="margin-right: 20px;">개봉작만</span>
         <span
           ><span style="font-weight: bold;">{{ total }}</span>개의 영화가
           검색되었습니다.</span
@@ -53,7 +65,8 @@ export default {
       title: '',
       isOpen: false,
       activeItem: 'box_office',
-      nextPage: null
+      nextPage: null,
+      activeOrder: 'date'
     }
   },
   components: {
@@ -115,6 +128,23 @@ export default {
     },
     isActive (val) {
       return this.activeItem === val
+    },
+    async setOrder (val) {
+      this.activeOrder = val
+      this.page = 1
+      const params = {
+        page: this.page,
+        per_page: this.perPage,
+        active_type: this.activeItem,
+        active_order: this.activeOrder
+      }
+      const { data } = await this.axios.get('movies', { params })
+      this.total = data.count
+      this.movies = data.results
+      this.nextPage = data.next
+    },
+    isOrder (val) {
+      return this.activeOrder === val
     }
   }
 }

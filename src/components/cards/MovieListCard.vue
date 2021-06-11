@@ -15,7 +15,7 @@
           <img v-else src="@/assets/green-rating.png">
         </div>
         <div>
-          <span style="font-size: 20px; margin-left: 10px;">{{ item.title }}</span>
+          <span style="font-size: 20px; margin-left: 10px;">{{ item.title | titleLength }}</span>
         </div>
       </div>
       <div style="display: flex; margin-top: 5px;">
