@@ -29,15 +29,15 @@
 </template>
 <script>
 export default {
-  name: "NavBarComponent",
+  name: 'NavBarComponent',
   props: { data: String },
   data() {
     return {
-      movies: ["전체영화", "N스크린", "큐레이션", "무비포스트"],
-      reservations: ["빠른예매", "상영시간표", "더 부티크 프라이빗 예매"],
-      theaters: ["전체극장", "특별관"],
-      events: ["진행중 이벤트", "지난 이벤트", "당첨자발표"],
-      gifts: ["메가박스 멤버십", "제휴/할인"],
+      movies: ['전체영화', 'N스크린', '큐레이션', '무비포스트'],
+      reservations: ['빠른예매', '상영시간표', '더 부티크 프라이빗 예매'],
+      theaters: ['전체극장', '특별관'],
+      events: ['진행중 이벤트', '지난 이벤트', '당첨자발표'],
+      gifts: ['메가박스 멤버십', '제휴/할인'],
     };
   },
 };
