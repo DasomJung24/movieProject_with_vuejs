@@ -44,6 +44,11 @@
 .nav-top-r > span:first-child {
   margin-left: 0;
 }
+.nav-top-l > span:hover,
+.nav-top-r > span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 .nav-text {
   font-size: 18px;
   padding: 15px 0 14px 0;
@@ -61,11 +66,17 @@
 .nav-icon {
   margin-right: 15px;
 }
-.nav-bar {
+.nav-bar-main {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
   position: absolute;
   color: #fff;
+}
+.nav-bar {
+  width: 100%;
+  position: absolute;
+  color: #fff;
+  background-color: #339eb2;
 }
 .movie-bar,
 .reservation-bar,
@@ -143,6 +154,15 @@
   right: -20px;
   top: 5px;
 }
+div.more-movie:hover {
+  cursor: pointer;
+}
+div.more-movie:hover > span {
+  text-decoration: underline;
+}
+.img-card {
+  position: relative;
+}
 .image {
   border-radius: 5px;
   width: 245px;
@@ -156,6 +176,23 @@
   color: #fff;
   font-style: oblique;
   text-shadow: 3px 3px 2px #666;
+}
+div.img-card:hover > div.img-cover {
+  opacity: 1;
+}
+.img-cover {
+  opacity: 0;
+  position: absolute;
+  width: 185px;
+  height: 292px;
+  z-index: 999;
+  top: 0;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  transition: all 0.5s;
+  padding: 30px;
+  border-radius: 5px;
+  line-height: 22px;
 }
 .button-flex {
   display: flex;
@@ -350,4 +387,44 @@ input:checked + .slider::before {
 }
 span.order {
   font-weight: bold;
+}
+.register-form > div {
+  display: flex;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.register-form > div:first-child {
+  border-top: 1px solid #000;
+}
+.label {
+  width: 120px;
+  padding: 20px;
+  background-color: #F5F5F5;
+  font-weight: bold;
+}
+.label + div {
+  width: calc(100% - 300px);
+  padding: 10px;
+}
+.register-input {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #ddd;
+  padding-left: 10px;
+  font-size: 15px;
+}
+.register-input:focus {
+  outline: none;
+}
+.email-btn {
+  margin: 12px;
+  width: 80px;
+  border: none;
+  color: gray;
+  border-radius: 5px;
+  background-color: #ddd;
+  font-size: 15px;
+}
+.email-btn:hover {
+  cursor: pointer;
 }

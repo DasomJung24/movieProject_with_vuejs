@@ -21,6 +21,11 @@ const routes = [
         component: () => import('../views/movies/MovieList.vue')
       }
     ]
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/users/Register.vue')
   }
 ]
 

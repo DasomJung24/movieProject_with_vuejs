@@ -6,9 +6,9 @@
           >박스오피스</span
         >
       </div>
-      <div class="more-movie">더 많은 영화보기 +</div>
+      <div class="more-movie" @click="$router.push({ name: 'MovieList' })"><span>더 많은 영화보기</span> +</div>
     </div>
-    <MainMovie />
+    <MainMovie :movies="movies"/>
     <div class="bottom-bar">
       <div>
         <input
@@ -38,10 +38,22 @@
 import MainMovie from '@/components/cards/MainCard.vue'
 export default {
   data () {
-    return {}
+    return {
+      movies: []
+    }
+  },
+  created () {
+    this.getMovies()
   },
   components: {
     MainMovie
+  },
+  methods: {
+    async getMovies () {
+      const params = { main: true }
+      const { data } = await this.axios.get('movies', { params })
+      this.movies = data.results
+    }
   }
 }
 </script>

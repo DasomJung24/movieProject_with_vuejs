@@ -18,3 +18,11 @@ export function titleLength (value) {
   }
   return value
 }
+
+export function contentLength (value) {
+  if (value.length > 70) {
+    value = value.slice(0, 70)
+    return value
+  }
+  return value
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-bar">
+  <div :class="$route.name === 'MainList' ? 'nav-bar-main' : 'nav-bar'">
     <div class="movie-bar" v-if="data === 'movie'">
       <div v-for="movie in movies" :key="movie">
         {{ movie }}

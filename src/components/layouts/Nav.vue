@@ -53,7 +53,7 @@
             v-bind:class="{ grey: this.$route.name === 'MainList' }"
           >
             <span>로그인</span>
-            <span>회원가입</span>
+            <span @click="$router.push({name: 'Register'})">회원가입</span>
             <span>빠른예매</span>
           </div>
         </div>
