@@ -67,18 +67,44 @@
   position: absolute;
   color: #fff;
 }
-.movie-bar {
+.movie-bar,
+.reservation-bar,
+.theater-bar,
+.event-bar,
+.gift-bar {
   display: flex;
   padding: 10px 0;
 }
-.movie-bar > div {
+.event-bar,
+.gift-bar {
+  justify-content: flex-end;
+}
+.movie-bar > div,
+.reservation-bar > div,
+.theater-bar > div,
+.event-bar > div,
+.gift-bar > div {
   margin-right: 20px;
 }
-.movie-bar > div:last-child {
+.movie-bar > div:last-child,
+.reservation-bar > div:last-child,
+.theater-bar > div:last-child {
   margin-right: 0;
 }
 .movie-bar > div:first-child {
   margin-left: 150px;
+}
+.reservation-bar > div:first-child {
+  margin-left: 270px;
+}
+.theater-bar > div:first-child {
+  margin-left: 400px;
+}
+.event-bar > div:last-child {
+  margin-right: 360px;
+}
+.gift-bar > div:last-child {
+  margin-right: 210px;
 }
 .white {
   color: #fff;
