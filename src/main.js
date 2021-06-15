@@ -6,6 +6,7 @@ import App from './App.vue'
 import VueMoment from 'vue-moment'
 import * as filters from './common/filters'
 import './common/api'
+import '@/common/validation/vee-validate.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faSearch,
