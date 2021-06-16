@@ -102,7 +102,7 @@
               <div class="label">나만의 메가박스</div>
               <div style="width: calc(100% - 180px); display: flex; align-items: center;">
                 <span>자주 방문하는 메가박스를 등록해주세요!</span>
-                <button class="my-megabox-btn">설정</button>
+                <button class="my-megabox-btn" @click="isModalVisible = true">설정</button>
               </div>
             </div>
           </div>
@@ -114,8 +114,40 @@
         v-show="isModalVisible"
         @close="closeModal"
       >
+        <template v-slot:header>
+          <span v-if="!emailConfirm">선호극장 관리</span>
+        </template>
         <template v-slot:body>
-          {{ modalContent }}
+          <div v-if="emailConfirm">
+            <span>{{ modalContent }}</span>
+          </div>
+          <div v-else>
+            <div class="select-modal">
+              <select v-model="citySelected" @change="cityChanged" name="cities" class="select-box">
+                <option v-for="(item, key) in cityList" :key="key">{{ key }}</option>
+              </select>
+              <select name="theaters" v-if="theaterList" v-model="theaterSelected" class="select-box">
+                <option v-for="theater in theaterList" :key="theater.id">{{ theater.name }}</option>
+              </select>
+              <button @click="addTheater" class="add-btn">추가</button>
+            </div>
+            <div style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 30px;">
+              <div
+                  v-for="theater in selectedTheaters"
+                  :key="theater.id"
+                  class="add-div"
+                  :class="theater.value !== '+' ? 'add-div-2' : ''"
+              >{{ theater.value }}
+                <div v-if="theater.value !== '+'" class="theater-delete" @click="deleteTheater(theater.value)">x</div>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template v-slot:footer>
+          <div v-if="!emailConfirm">
+            <button @click="theaterCancel" class="theater-cancel">취소</button>
+            <button class="theater-btn">등록</button>
+          </div>
         </template>
       </Modal>
     </div>
@@ -137,8 +169,17 @@ export default {
       },
       isModalVisible: false,
       modalContent: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+      emailConfirm: false,
+      cityList: {},
+      theaterList: [],
+      citySelected: '서울',
+      theaterSelected: '',
+      selectedTheaters: [{ id: 1, value: '+' }, { id: 2, value: '+' }, { id: 3, value: '+' }]
     }
+  },
+  created () {
+    this.getTheaterList()
   },
   components: {
     Modal,
@@ -154,9 +195,42 @@ export default {
         this.modalContent = '사용가능한 이메일입니다.'
       }
       this.isModalVisible = true
+      this.emailConfirm = true
     },
     closeModal () {
       this.isModalVisible = false
+      this.emailConfirm = false
+    },
+    async getTheaterList () {
+      const { data } = await this.axios.get('theaters')
+      this.cityList = data
+      this.theaterList = data['서울']
+      this.emailConfirm = false
+    },
+    cityChanged () {
+      this.theaterList = this.cityList[this.citySelected]
+    },
+    addTheater () {
+      for (var i = 0; i < this.selectedTheaters.length; i++) {
+        if (this.selectedTheaters[i].value === '+') {
+          this.selectedTheaters[i].value = this.theaterSelected
+          break
+        }
+      }
+    },
+    deleteTheater (value) {
+      this.selectedTheaters = this.selectedTheaters.map(
+        i => i.value === value ? { ...i, value: '+' } : i
+      )
+    },
+    theaterCancel () {
+      this.isModalVisible = false
+      this.selectedTheaters = this.selectedTheaters.map(
+        i => i.value !== '+' ? { ...i, value: '+' } : i
+      )
+      this.citySelected = '서울'
+      this.theaterSelected = ''
+      this.theaterList = this.cityList['서울']
     }
   }
 }
