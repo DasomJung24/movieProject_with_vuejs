@@ -569,3 +569,25 @@ span.order {
   background-color: #fff;
   cursor: pointer;
 }
+.box-text {
+  font-size: 14px;
+  margin-right: 20px;
+}
+.box-check {
+  margin-right: 5px;
+}
+.box-div {
+  background-color: #eee;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+.user-register-btn {
+  width: 200px;
+  border: 1px solid #ddd;
+  background-color: #ddd;
+  height: 45px;
+  margin-top: 40px;
+  border-radius: 5px;
+  font-size: 20px;
+  color: #666666;
+}
