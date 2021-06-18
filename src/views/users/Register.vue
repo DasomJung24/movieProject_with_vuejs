@@ -178,6 +178,9 @@
             <button @click="theaterCancel" class="theater-cancel">취소</button>
             <button @click="submitTheaters" class="theater-btn">등록</button>
           </div>
+          <div v-else>
+            <button type="button" class="btn-confirm" @click="closeModal">확인</button>
+          </div>
         </template>
       </Modal>
     </div>
@@ -273,11 +276,12 @@ export default {
       this.isRegister = true
       this.isModalVisible = false
     },
-    async submitRegister () {
-      const { status } = await this.axios.post('signup', this.form)
-      if (status === 201) {
-        this.$router.push({ name: 'RegisterFinished' })
-      }
+    submitRegister () {
+      // const { status } = await this.axios.post('signup', this.form)
+      // if (status === 201) {
+      //   this.$router.push({ name: 'RegisterFinished' })
+      // }
+      this.$router.push({ name: 'RegisterFinished' })
     }
   }
 }

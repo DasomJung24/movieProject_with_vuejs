@@ -19,13 +19,6 @@
       </section>
       <footer class="modal-footer">
         <slot name="footer">
-          <button
-            type="button"
-            class="btn-confirm"
-            @click="close"
-          >
-            확인
-          </button>
         </slot>
       </footer>
     </div>

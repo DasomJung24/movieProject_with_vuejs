@@ -23,7 +23,7 @@ const routes = [
     ]
   },
   {
-    path: '/register',
+    path: '/',
     name: 'Register',
     redirect: '/register',
     component: () => import('../components/layouts/UserForm.vue'),

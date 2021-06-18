@@ -8,7 +8,7 @@ export default {
 }
 </script>
 <style>
-@import "./assets/common.css";
+@import "assets/css/common.css";
 * {
   margin: 0;
   padding: 0;

@@ -52,7 +52,7 @@
             class="nav-top-r"
             v-bind:class="{ grey: this.$route.name === 'MainList' }"
           >
-            <span>로그인</span>
+            <span @click="isModalVisible = true">로그인</span>
             <span @click="$router.push({name: 'Register'})">회원가입</span>
             <span>빠른예매</span>
           </div>
@@ -82,22 +82,26 @@
       </div>
     </div>
     <NavBarComponent :data="props"/>
+    <LoginModal
+      v-if="isModalVisible"
+      @close="isModalVisible = false">
+    </LoginModal>
   </div>
 </template>
 <script>
 import NavBarComponent from './NavBar.vue'
+import LoginModal from '../common/LoginModal'
 export default {
   name: 'Nav',
   components: {
-    NavBarComponent
+    NavBarComponent,
+    LoginModal
   },
   data () {
     return {
-      props: ''
+      props: '',
+      isModalVisible: false
     }
-  },
-  comments: {
-    NavBarComponent
   },
   methods: {
     setProps (val) {
