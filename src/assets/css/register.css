@@ -1,0 +1,124 @@
+.register-form > div {
+    display: flex;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.register-form > div:first-child {
+    border-top: 1px solid #000;
+}
+.label {
+    width: 120px;
+    padding: 20px;
+    background-color: #F5F5F5;
+    font-weight: bold;
+}
+.label + div {
+    width: calc(100% - 300px);
+    padding: 10px;
+}
+.register-input {
+    height: 40px;
+    width: 270px;
+    border: 1px solid #ddd;
+    padding-left: 10px;
+    font-size: 15px;
+}
+.register-input:focus {
+    outline: none;
+}
+.register-input + p {
+    color: #FF0000;
+    margin-top: 5px;
+    font-size: 13px;
+}
+.email-btn {
+    margin: 12px;
+    width: 80px;
+    border: none;
+    color: gray;
+    border-radius: 5px;
+    background-color: #ddd;
+    font-size: 15px;
+}
+.email-btn:hover {
+    cursor: pointer;
+}
+.my-megabox-btn {
+    width: 70px;
+    margin-left: 10px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.add-div {
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid #eee;
+    margin-right: 20px;
+}
+.add-div:last-child {
+    margin-right: 0;
+}
+.add-div-2 {
+    position: relative;
+    background-color: #eee;
+    font-size: 14px;
+}
+.theater-btn,
+.theater-cancel {
+    width: 45px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #483d8b;
+    cursor: pointer;
+}
+.theater-cancel {
+    color: #483d8b;
+    background-color: #fff;
+    margin-right: 3px;
+}
+.theater-btn {
+    color: #fff;
+    background-color: #483d8b;
+    margin-left: 3px;
+}
+.theater-delete {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    padding: 1px 7px;
+    background-color: #fff;
+    cursor: pointer;
+}
+.box-text {
+    font-size: 14px;
+    margin-right: 20px;
+}
+.box-check {
+    margin-right: 5px;
+}
+.box-div {
+    background-color: #eee;
+    padding: 15px 20px;
+    border-radius: 5px;
+}
+.user-register-btn {
+    width: 200px;
+    border: 1px solid #ddd;
+    background-color: #ddd;
+    height: 45px;
+    margin-top: 40px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #666666;
+    cursor: pointer;
+}
