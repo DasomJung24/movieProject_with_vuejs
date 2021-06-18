@@ -25,7 +25,20 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: () => import('../views/users/Register.vue')
+    redirect: '/register',
+    component: () => import('../components/layouts/UserForm.vue'),
+    children: [
+      {
+        path: '/register',
+        name: 'RegisterUser',
+        component: () => import('../views/users/Register')
+      },
+      {
+        path: 'finished',
+        name: 'RegisterFinished',
+        component: () => import('../views/users/RegisterFinished')
+      }
+    ]
   }
 ]
 

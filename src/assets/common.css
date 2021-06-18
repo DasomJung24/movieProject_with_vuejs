@@ -590,4 +590,33 @@ span.order {
   border-radius: 5px;
   font-size: 20px;
   color: #666666;
+  cursor: pointer;
+}
+.to-main-btn,
+.to-login-btn {
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #483d8b;
+  font-size: 16px;
+  cursor: pointer;
+}
+.to-main-btn {
+  background-color: #fff;
+  color: #483d8b;
+  margin-right: 10px;
+}
+.to-login-btn {
+  background-color: #483d8b;
+  color: #fff;
+  margin-left: 10px;
+}
+.finished-div {
+  margin: 12.5% 0;
+  padding: 12.5% 0;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
