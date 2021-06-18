@@ -14,15 +14,15 @@
       <section class="modal-body">
         <div class="login-box-all">
           <div class="login-box">
-            <input class="login-input" placeholder="이메일" />
-            <input class="login-input" placeholder="비밀번호" />
+            <input class="login-input" placeholder="이메일" v-model="form.email" />
+            <input class="login-input" placeholder="비밀번호" v-model="form.password" />
             <div class="simple-login">
               <div>
-                <input type="checkbox" style="margin-right: 5px;"><label>아이디 저장</label>
+                <input type="checkbox" style="margin-right: 5px;"><label class="save-email">아이디 저장</label>
               </div>
               <p>휴대폰 간편로그인<span class="advertise">광고</span></p>
             </div>
-            <button class="login-btn">로그인</button>
+            <button class="login-btn" :class="form.email && form.password ? 'login-btn-active' : 'login-btn-grey'">로그인</button>
             <div class="login-bottom">
               <p>ID/PW 찾기</p>
               <p>회원가입</p>
@@ -50,6 +50,14 @@
 <script>
 export default {
   name: 'Modal',
+  data () {
+    return {
+      form: {
+        email: '',
+        password: ''
+      }
+    }
+  },
   methods: {
     close () {
       this.$emit('close')

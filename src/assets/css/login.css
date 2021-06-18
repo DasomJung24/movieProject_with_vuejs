@@ -14,12 +14,21 @@
   width: 350px;
   height: 25px;
 }
+.login-input:focus,
+.login-input:hover {
+  outline: 1px solid #000;
+}
 .login-input + div {
   margin-top: 10px;
 }
 .simple-login {
   display: flex;
   justify-content: space-between;
+}
+.save-email:hover,
+.simple-login > p:hover,
+.login-social > img:hover {
+  cursor: pointer;
 }
 .simple-login > p {
   color: #3d7db7;
@@ -33,11 +42,23 @@
 .login-btn {
   margin-top: 30px;
   height: 45px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.login-btn-grey {
   border: 1px solid #ddd;
   background-color: #ddd;
   color: #4d4d4d;
-  font-size: 14px;
-  border-radius: 5px;
+}
+.login-btn-active {
+  border: 1px solid #483d8b;
+  background-color: #483d8b;
+  color: #fff;
+}
+.login-btn-active:hover {
+  border: 1px solid #28085c;
+  background-color: #28085c;
 }
 .login-bottom {
   display: flex;
@@ -49,6 +70,10 @@
 .login-bottom > p {
   padding: 0 10px;
   border-right: 1px solid #ddd;
+}
+.login-bottom > p:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 .login-bottom > p:last-child {
   border-right: none;
