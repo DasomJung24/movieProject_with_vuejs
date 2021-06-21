@@ -3,7 +3,7 @@
     <div style="text-align: left; margin-top: 50px; border-top: 1px solid #ddd; padding-top:40px; padding-bottom: 20px;">
       <span>회원정보를 입력해주세요.</span>
     </div>
-    <ValidationObserver>
+    <ValidationObserver ref="observer">
       <div class="register-form">
         <div>
           <div class="label">이메일 주소</div>
@@ -225,14 +225,18 @@ export default {
   },
   methods: {
     async confirmEmail () {
-      const { data } = await this.axios.post('confirm-email', { email: this.form.email })
-      if (data.email) {
-        this.modalContent = '이미 사용중인 이메일입니다.'
+      if (!this.form.email) {
+        alert('이메일을 입력해주세요.')
       } else {
-        this.modalContent = '사용가능한 이메일입니다.'
+        const { data } = await this.axios.post('confirm-email', { email: this.form.email })
+        if (data.email) {
+          this.modalContent = '이미 사용중인 이메일입니다.'
+        } else {
+          this.modalContent = '사용가능한 이메일입니다.'
+        }
+        this.isModalVisible = true
+        this.emailConfirm = true
       }
-      this.isModalVisible = true
-      this.emailConfirm = true
     },
     closeModal () {
       this.isModalVisible = false
@@ -276,12 +280,12 @@ export default {
       this.isRegister = true
       this.isModalVisible = false
     },
-    submitRegister () {
-      // const { status } = await this.axios.post('signup', this.form)
-      // if (status === 201) {
-      //   this.$router.push({ name: 'RegisterFinished' })
-      // }
-      this.$router.push({ name: 'RegisterFinished' })
+    async submitRegister () {
+      const { status } = await this.axios.post('signup', this.form)
+      if (status === 201) {
+        this.$router.push({ name: 'RegisterFinished' })
+      }
+      // this.$router.push({ name: 'RegisterFinished' })
     }
   }
 }

@@ -52,8 +52,9 @@
             class="nav-top-r"
             v-bind:class="{ grey: this.$route.name === 'MainList' }"
           >
-            <span @click="isModalVisible = true">로그인</span>
-            <span @click="$router.push({name: 'Register'})">회원가입</span>
+            <span @click="isModalVisible = true" v-if="!isAuthenticated">로그인</span>
+            <span @click="$router.push({name: 'Register'})" v-if="!isAuthenticated">회원가입</span>
+            <span v-else>마이페이지</span>
             <span>빠른예매</span>
           </div>
         </div>
@@ -89,6 +90,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import NavBarComponent from './NavBar.vue'
 import LoginModal from '../common/LoginModal'
 export default {
@@ -102,6 +104,9 @@ export default {
       props: '',
       isModalVisible: false
     }
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated'])
   },
   methods: {
     setProps (val) {

@@ -14,15 +14,19 @@
       <section class="modal-body">
         <div class="login-box-all">
           <div class="login-box">
-            <input class="login-input" placeholder="이메일" v-model="form.email" />
-            <input class="login-input" placeholder="비밀번호" v-model="form.password" />
+            <input class="login-input" placeholder="이메일" v-model="credentials.email" />
+            <input class="login-input" placeholder="비밀번호" v-model="credentials.password" />
             <div class="simple-login">
               <div>
                 <input type="checkbox" style="margin-right: 5px;"><label class="save-email">아이디 저장</label>
               </div>
               <p>휴대폰 간편로그인<span class="advertise">광고</span></p>
             </div>
-            <button class="login-btn" :class="form.email && form.password ? 'login-btn-active' : 'login-btn-grey'">로그인</button>
+            <button
+                @click="login"
+                class="login-btn"
+                :class="credentials.email && credentials.password ? 'login-btn-active' : 'login-btn-grey'"
+            >로그인</button>
             <div class="login-bottom">
               <p>ID/PW 찾기</p>
               <p>회원가입</p>
@@ -52,7 +56,7 @@ export default {
   name: 'Modal',
   data () {
     return {
-      form: {
+      credentials: {
         email: '',
         password: ''
       }
@@ -61,6 +65,12 @@ export default {
   methods: {
     close () {
       this.$emit('close')
+    },
+    async login () {
+      const { status } = await this.$store.dispatch('LOGIN', this.credentials)
+      if (status === 200) {
+        this.$router.go(this.$router.currentRoute)
+      }
     }
   }
 }
