@@ -22,6 +22,8 @@ import {
   faCalendarAlt as farCalendar
 } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { getStorage } from './common/utils'
+import { ID_TOKEN_KEY } from './store/constant'
 
 Vue.use(VueRouter)
 Vue.use(VueMoment)
@@ -45,6 +47,16 @@ Vue.config.productionTip = false
 Object.keys(filters).forEach(function (key) {
   Vue.filter(key, filters[key])
 })
+
+const authentication = () => {
+  const accessToken = getStorage(ID_TOKEN_KEY)
+  if (accessToken) {
+    Vue.axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
+    store.dispatch('ME')
+  }
+}
+
+authentication()
 
 new Vue({
   store,

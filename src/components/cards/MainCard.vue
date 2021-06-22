@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="button-flex">
-        <button class="like-btn">
+        <button class="like-btn" @click="like(item.id)">
           <font-awesome-icon
             :icon="['far', 'heart']"
             size="lg"
@@ -29,6 +29,15 @@ export default {
   data () {
     return {}
   },
-  methods: {}
+  methods: {
+    async like (movieId) {
+      const { status } = await this.axios.post(`movies/${movieId}/likes`)
+      if (status === 201) {
+        this.movies.map(
+          i => i.id !== movieId ? i : { ...i, like_count: i.like_count + 1 }
+        )
+      }
+    }
+  }
 }
 </script>

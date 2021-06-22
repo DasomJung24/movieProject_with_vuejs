@@ -70,6 +70,7 @@ export default {
       const { status } = await this.$store.dispatch('LOGIN', this.credentials)
       if (status === 200) {
         this.$router.go(this.$router.currentRoute)
+        console.log(111)
       }
     }
   }

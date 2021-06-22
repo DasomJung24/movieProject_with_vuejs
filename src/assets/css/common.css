@@ -132,10 +132,12 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   z-index: 0;
+  overflow-x: scroll;
 }
 .backLayer {
   backdrop-filter: blur(20px);
   background: rgba(0, 0, 0, 0.8);
+  overflow-x: scroll;
 }
 .main-container {
   z-index: 100;
@@ -211,6 +213,7 @@ div.img-card:hover > div.img-cover {
   background-color: transparent;
   border: solid #4d4d4d 1px;
   margin-right: 5px;
+  cursor: pointer;
 }
 .heart {
   margin-left: 6px;
@@ -223,6 +226,7 @@ div.img-card:hover > div.img-cover {
   background-color: #037b94;
   color: white;
   border: none;
+  cursor: pointer;
 }
 .box-office > div {
   margin-right: 10px;

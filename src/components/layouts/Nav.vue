@@ -54,7 +54,8 @@
           >
             <span @click="isModalVisible = true" v-if="!isAuthenticated">로그인</span>
             <span @click="$router.push({name: 'Register'})" v-if="!isAuthenticated">회원가입</span>
-            <span v-else>마이페이지</span>
+            <span @click="logout" v-else>로그아웃</span>
+            <span v-if="isAuthenticated">알림</span>
             <span>빠른예매</span>
           </div>
         </div>
@@ -106,11 +107,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isAuthenticated'])
+    ...mapGetters(['isAuthenticated', 'currentUser'])
   },
   methods: {
     setProps (val) {
       this.props = val
+    },
+    logout () {
+      this.$store
+        .dispatch('LOGOUT')
+        .then(() => this.$router.go(this.$router.currentRoute))
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }
