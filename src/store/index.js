@@ -7,13 +7,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {},
+    user: {
+      movies: []
+    },
     token: null,
     isAuthenticated: !!getStorage(ID_TOKEN_KEY)
   },
   getters: {
     currentUser (state) {
       return state.user
+    },
+    currentUserMovies (state) {
+      return state.user.movies ?? []
     },
     permissions (state) {
       return state.user.user_permissions
@@ -32,13 +37,13 @@ export default new Vuex.Store({
       state.isAuthenticated = true
       state.user.email = user.email
       state.user.name = user.name
-      state.user.theaters = user.theaters
+      state.user.theaters = user.favorites
       state.user.phone_number = user.phone_number
       state.user.birth = user.birth
       state.user.is_unmanned_ticket = user.is_unmanned_ticket
       state.user.is_marketing = user.is_marketing
       state.user.receive_settings = user.receive_settings
-      state.user.movies = user.movies
+      state.user.movies = user.likes
     },
     LOGOUT (state) {
       state.user = {}
@@ -54,7 +59,6 @@ export default new Vuex.Store({
       if (accessToken) {
         Vue.axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
         commit('LOGIN', accessToken)
-        console.log(res.data)
         commit('SET_USER', res.data)
       }
       return res
@@ -64,7 +68,6 @@ export default new Vuex.Store({
       if (status === 403) {
         commit('LOGOUT')
       } else {
-        console.log('#######', data)
         commit('SET_USER', data)
       }
     },

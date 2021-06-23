@@ -2,7 +2,7 @@
   <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px 60px;">
     <div v-for="(item, index) in movies" :key="item.id">
       <div style="position: relative;">
-        <img :src="item.image" width="230px">
+        <img :src="handleImageSrc(item)" width="230px">
         <div class="img-num">
           <h1>{{ index + 1 }}</h1>
         </div>
@@ -24,81 +24,72 @@
         <span style="padding-left: 5px;">개봉일 {{ item.opening_date | toKstDate }}</span>
       </div>
       <div style="display: flex; margin-top: 7px; height: 35px;">
-        <button class="movie-like-btn"><font-awesome-icon
+        <button @click="like(item.id, item.user_like)" class="movie-like-btn">
+          <font-awesome-icon
+            v-if="!item.user_like"
             :icon="['far', 'heart']"
             size="lg"
             color="grey"
-        /><span class="heart purple">{{ item.like_count }}</span></button>
+        />
+          <font-awesome-icon v-else icon="heart" size="lg" color="#037b94" />
+          <span class="heart purple">{{ item.like_count }}</span></button>
           <button class="movie-reserve-btn">예매</button>
           <button class="movie-dolby-btn"><img src="@/assets/dolby-btn.png"></button>
       </div>
     </div>
+    <Modal
+      v-show="isModalVisible"
+      @close="closeModal">
+      <template v-slot:body>
+        로그인 후 이용가능한 서비스입니다.
+      </template>
+      <template v-slot:footer>
+        <button @click="isModalVisible = false" class="theater-btn">확인</button>
+      </template>
+    </Modal>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import Modal from '@/components/common/Modal.vue'
 export default {
   props: { movies: Array },
   data () {
     return {
-      data: [
-        {
-          id: 1,
-          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
-          title: '크루엘라',
-          audience_rating: '12세관람가',
-          ticketing_rate: '15.2',
-          like_count: 30,
-          opening_date: '2021-05-26'
-        },
-        {
-          id: 2,
-          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
-          title: '크루엘라',
-          audience_rating: '15세관람가',
-          ticketing_rate: '15.2',
-          like_count: 30,
-          opening_date: '2021-05-26'
-        },
-        {
-          id: 3,
-          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
-          title: '크루엘라',
-          audience_rating: '전체관람가',
-          ticketing_rate: '15.2',
-          like_count: 30,
-          opening_date: '2021-05-26'
-        },
-        {
-          id: 4,
-          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
-          title: '크루엘라',
-          audience_rating: '청소년관람불가',
-          ticketing_rate: '15.2',
-          like_count: 30,
-          opening_date: '2021-05-26'
-        },
-        {
-          id: 5,
-          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
-          title: '크루엘라',
-          audience_rating: '12세관람가',
-          ticketing_rate: '15.2',
-          like_count: 30,
-          opening_date: '2021-05-26'
-        },
-        {
-          id: 6,
-          img: 'https://img.megabox.co.kr/SharedImg/2021/05/12/J7vthd2FWEXswHD67dL2rQrMW4uhJQUF_420.jpg',
-          title: '크루엘라',
-          audience_rating: '12세관람가',
-          ticketing_rate: '15.2',
-          like_count: 30,
-          opening_date: '2021-05-26'
-        }
-      ]
+      isModalVisible: false
     }
   },
+  computed: {
+    ...mapGetters(['isAuthenticated'])
+  },
+  components: {
+    Modal
+  },
   methods: {
+    async like (movieId, userLike) {
+      if (!this.isAuthenticated) {
+        this.isModalVisible = true
+        return
+      }
+
+      if (userLike) {
+        const { status } = await this.axios.delete(`movies/${movieId}/likes`)
+        if (status === 204) {
+          this.$emit('deleteLike', movieId)
+        }
+      } else {
+        const { status } = await this.axios.post(`movies/${movieId}/likes`)
+        if (status === 201) {
+          this.$emit('clickLike', movieId)
+        }
+      }
+    },
+    handleImageSrc (movie) {
+      return movie.images.filter(i => i.type === 1).pop().url
+    },
+    closeModal () {
+      this.isModalVisible = false
+    }
   }
 }
 </script>

@@ -48,7 +48,7 @@
       </div>
     </div>
     <div style="margin-bottom: 80px;">
-      <MovieList :movies="movies"/>
+      <MovieList :movies="movies" @deleteLike="deleteLike" @clickLike="clickLike" />
       <button v-if="nextPage" @click="moreMovie" class="more-btn">더보기 <font-awesome-icon icon="chevron-down" size="1x" color="gray" /></button>
     </div>
   </div>
@@ -66,7 +66,8 @@ export default {
       isOpen: false,
       activeItem: 'box_office',
       nextPage: null,
-      activeOrder: 'date'
+      activeOrder: 'date',
+      beforeResults: []
     }
   },
   components: {
@@ -145,6 +146,16 @@ export default {
     },
     isOrder (val) {
       return this.activeOrder === val
+    },
+    deleteLike (movieId) {
+      this.movies = this.movies.map(
+        i => i.id !== movieId ? i : { ...i, like_count: i.like_count - 1, user_like: false }
+      )
+    },
+    clickLike (movieId) {
+      this.movies = this.movies.map(
+        i => i.id !== movieId ? i : { ...i, like_count: i.like_count + 1, user_like: true }
+      )
     }
   }
 }

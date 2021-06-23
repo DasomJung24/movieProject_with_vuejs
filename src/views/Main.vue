@@ -8,7 +8,7 @@
       </div>
       <div class="more-movie" @click="$router.push({ name: 'MovieList' })"><span>더 많은 영화보기</span> +</div>
     </div>
-    <MainMovie :movies="movies"/>
+    <MainMovie :movies="movies" @deleteLike="deleteLike" @clickLike="clickLike"/>
     <div class="bottom-bar">
       <div>
         <input
@@ -53,6 +53,16 @@ export default {
       const params = { main: true }
       const { data } = await this.axios.get('movies', { params })
       this.movies = data.results
+    },
+    deleteLike (movieId) {
+      this.movies = this.movies.map(
+        i => i.id !== movieId ? i : { ...i, like_count: i.like_count - 1, user_like: false }
+      )
+    },
+    clickLike (movieId) {
+      this.movies = this.movies.map(
+        i => i.id !== movieId ? i : { ...i, like_count: i.like_count + 1, user_like: true }
+      )
     }
   }
 }
