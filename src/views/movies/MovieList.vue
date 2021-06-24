@@ -7,6 +7,9 @@
       <li @click="setActive('special')" :class="{active: isActive('special')}">특별상영</li>
       <li @click="setActive('film')" :class="{active: isActive('film')}">필름소사이어티</li>
       <li @click="setActive('classic')" :class="{active: isActive('classic')}">클래식소사이어티</li>
+      <li v-if="isAuthenticated" @click="setActive('favorite')" :class="{active: isActive('favorite')}">
+        <span style="font-weight: bold; color: #339eb2;">{{ currentUser.name }}</span>님 선호 장르 영화
+      </li>
     </ul>
     <div class="tab-search">
       <div style="padding: 5px;">
@@ -54,6 +57,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import MovieList from '@/components/cards/MovieListCard.vue'
 export default {
   data () {
@@ -75,6 +79,9 @@ export default {
   },
   created () {
     this.getList()
+  },
+  computed: {
+    ...mapGetters(['currentUser', 'isAuthenticated'])
   },
   methods: {
     async getList () {

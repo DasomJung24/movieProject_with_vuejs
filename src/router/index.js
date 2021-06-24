@@ -18,6 +18,9 @@ const routes = [
       {
         path: 'movies',
         name: 'MovieList',
+        meta: {
+          name: '영화'
+        },
         component: () => import('../views/movies/MovieList.vue')
       }
     ]

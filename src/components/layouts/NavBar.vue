@@ -1,5 +1,14 @@
 <template>
   <div :class="$route.name === 'MainList' ? 'nav-bar-main' : 'nav-bar'">
+    <div v-if="!data" class="bread-crumb">
+      <div>
+        <font-awesome-icon icon="home" color="#aaa"/>
+        <p>></p>
+        <p></p>
+        <p>></p>
+        <p></p>
+      </div>
+    </div>
     <div class="movie-bar" v-if="data === 'movie'">
       <div v-for="movie in movies" :key="movie">
         {{ movie }}

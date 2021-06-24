@@ -82,6 +82,18 @@
   color: #fff;
   background-color: #339eb2;
 }
+.bread-crumb {
+  width: 100%;
+  background-color: #eee;
+  height: 40px;
+  margin-top: 1px;
+  position: absolute;
+}
+.bread-crumb > div {
+  width: 1100px;
+  margin: 0 auto;
+  color: #aaa;
+}
 .movie-bar,
 .reservation-bar,
 .theater-bar,
@@ -360,6 +372,7 @@ input:checked + .slider::before {
   width: 34%;
   border-radius: 5px;
   margin-right: 5px;
+  cursor: pointer;
 }
 .purple {
   color: #483d8b;
