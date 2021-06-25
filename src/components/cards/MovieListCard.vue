@@ -1,10 +1,13 @@
 <template>
   <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px 60px;">
     <div v-for="(item, index) in movies" :key="item.id">
-      <div style="position: relative;">
+      <div class="img-card">
         <img :src="handleImageSrc(item)" width="230px">
         <div class="img-num">
           <h1>{{ index + 1 }}</h1>
+        </div>
+        <div class="img-cover-list">
+          {{ item.content | contentLength }}
         </div>
       </div>
       <div style="display: flex; margin-top: 15px;">

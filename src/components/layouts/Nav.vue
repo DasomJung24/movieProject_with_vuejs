@@ -20,21 +20,18 @@
           </div>
           <div class="space-between">
             <span
-                class="nav-text"
+                :class="$route.name === 'MainList' ? 'nav-text-main' : 'nav-text'"
                 @click="$router.push({ name: 'MovieList' })"
                 @mouseover="setProps('movie')"
-                @mouseout="props = null"
               >영화</span
             >
             <span
-                class="nav-text"
+                :class="$route.name === 'MainList' ? 'nav-text-main' : 'nav-text'"
                 @mouseover="setProps('reservation')"
-                @mouseout="props = null"
             >예매</span>
             <span
-                class="nav-text"
+                :class="$route.name === 'MainList' ? 'nav-text-main' : 'nav-text'"
                 @mouseover="setProps('theater')"
-                @mouseout="props = null"
             >극장</span>
           </div>
         </div>
@@ -65,15 +62,14 @@
         >
           <div class="space-between">
             <span
-                class="nav-text"
+                :class="$route.name === 'MainList' ? 'nav-text-main' : 'nav-text'"
                 @mouseover="setProps('event')"
-                @mouseout="props = null"
             >이벤트</span>
-            <span class="nav-text">스토어</span>
+            <span :class="$route.name === 'MainList' ? 'nav-text-main' : 'nav-text'"
+            >스토어</span>
             <span
-                class="nav-text"
+                :class="$route.name === 'MainList' ? 'nav-text-main' : 'nav-text'"
                 @mouseover="setProps('gift')"
-                @mouseout="props = null"
             >혜택</span>
           </div>
           <div style="margin-left: 50px;">
@@ -83,7 +79,7 @@
         </div>
       </div>
     </div>
-    <NavBarComponent :data="props"/>
+    <NavBarComponent :data="props" @deleteProps="props = null" />
     <LoginModal
       v-if="isModalVisible"
       @close="isModalVisible = false">

@@ -3,7 +3,7 @@
     <div v-bind:class="{ backUrl: this.$route.name === 'MainList' }">
       <div v-bind:class="{ backLayer: this.$route.name === 'MainList' }">
         <Nav />
-        <div class="main-container">
+        <div>
           <router-view />
         </div>
       </div>

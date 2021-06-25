@@ -17,7 +17,8 @@ import {
   faTicketAlt,
   faChevronDown,
   faHeart,
-  faHome
+  faHome,
+  faMouse
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faHeart as farHeart,
@@ -41,7 +42,8 @@ library.add(
   faTicketAlt,
   faChevronDown,
   faHeart,
-  faHome
+  faHome,
+  faMouse
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

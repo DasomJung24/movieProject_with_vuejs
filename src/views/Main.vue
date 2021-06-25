@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-container">
     <div class="box">
       <div>
         <span style="border-bottom: 2px solid #595959; padding-bottom: 5px; font-size: 16px;"
@@ -21,16 +21,19 @@
           :icon="['far', 'calendar-alt']"
           size="lg"
           color="grey"
-        /><span style="color: #fff; margin-left: 10px;">상영시간표</span>
+        /><span class="bottom-bar-box">상영시간표</span>
       </div>
-      <div>
+      <div @click="$router.push({ name: 'MovieList' })">
         <font-awesome-icon icon="film" size="lg" color="grey" />
-        <span style="color: #fff; margin-left: 10px;">박스오피스</span>
+        <span class="bottom-bar-box">박스오피스</span>
       </div>
       <div>
         <font-awesome-icon icon="ticket-alt" size="lg" color="grey" />
-        <span style="color: #fff; margin-left: 10px;">빠른예매</span>
+        <span class="bottom-bar-box">빠른예매</span>
       </div>
+    </div>
+    <div class="mouse">
+      <font-awesome-icon class="mouse-animation" icon="mouse" size="lg" color="#aaa" />
     </div>
   </div>
 </template>
