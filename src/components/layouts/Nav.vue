@@ -27,6 +27,7 @@
             >
             <span
                 :class="$route.name === 'MainList' ? 'nav-text-main' : 'nav-text'"
+                @click="$router.push({ name: 'MovieReservation' })"
                 @mouseover="setProps('reservation')"
             >예매</span>
             <span

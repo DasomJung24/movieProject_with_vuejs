@@ -24,6 +24,11 @@ const routes = [
         path: 'movies/:id',
         name: 'MovieDetail',
         component: () => import('../views/movies/MovieDetail')
+      },
+      {
+        path: 'reservations',
+        name: 'MovieReservation',
+        component: () => import('../views/reservations/Reservation')
       }
     ]
   },

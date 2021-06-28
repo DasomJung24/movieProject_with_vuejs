@@ -21,6 +21,14 @@
           </div>
         </div>
       </div>
+      <div v-if="scroll >= 515" class="detail-bread-crumb-tab">
+        <ul>
+          <li @click="setActive('main-content')" :class="{active: isActive('main-content')}">주요정보</li>
+          <li @click="setActive('realReview')" :class="{active: isActive('realReview')}">실관람평</li>
+          <li @click="setActive('moviePost')" :class="{active: isActive('moviePost')}">무비포스트</li>
+          <li @click="setActive('nextAndStill')" :class="{active: isActive('nextAndStill')}">예고편/스틸컷</li>
+        </ul>
+      </div>
       <div class="detail-box">
         <div class="detail-left-box">
           <div>
