@@ -1,7 +1,7 @@
 <template>
   <div class="space-between box-office">
     <div v-for="(item, index) in movies" :key="item.id">
-      <div class="img-card">
+      <div class="p-relative">
         <img :src="handleImageSrc(item)" class="image" />
         <div class="img-num">
           <h1>{{ index + 1 }}</h1>

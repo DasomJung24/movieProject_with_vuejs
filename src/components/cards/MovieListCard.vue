@@ -1,7 +1,7 @@
 <template>
   <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px 60px;">
     <div v-for="(item, index) in movies" :key="item.id">
-      <div class="img-card">
+      <div class="p-relative" @click="$router.push({ name: 'MovieDetail', params: { id: item.id } })">
         <img :src="handleImageSrc(item)" width="230px">
         <div class="img-num">
           <h1>{{ index + 1 }}</h1>
