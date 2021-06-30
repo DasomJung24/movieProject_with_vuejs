@@ -1,0 +1,183 @@
+.reservation-box {
+    width: 100%;
+    margin-top: 30px;
+    border-bottom: 2px solid #ddd;
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+    border-top: 1px solid #000;
+}
+.re-calendar-bar {
+    display: flex;
+    /*justify-content: space-around;*/
+    border-bottom: 1px solid #ddd;
+}
+.re-movie-tab,
+.re-calendar,
+.re-theater-tab,
+.re-time-tab {
+    display: flex;
+    list-style: none;
+}
+.re-calendar {
+    width: calc(100% - 70px);
+    justify-content: space-around;
+}
+.re-movie-tab > li,
+.re-theater-tab > li {
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 15px;
+}
+.re-movie-tab > li.active,
+.re-theater-tab > li.active {
+    border-bottom: none;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+.re-movie-tab > li {
+    width: 120px;
+}
+.re-theater-tab > li {
+    width: 150px;
+}
+.re-movie,
+.re-theater {
+    height: 315px;
+    overflow-y: scroll;
+    cursor: pointer;
+    padding-top: 20px;
+}
+.re-movie > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 15px;
+}
+.re-movie > div > div {
+    display: flex;
+    padding: 4px 0 4px 10px;
+    align-items: center;
+}
+.re-movie-title {
+    font-size: 14px;
+    margin-left: 5px;
+}
+.re-movie-box,
+.select-movie-box {
+    height: 100px;
+    display: flex;
+    margin: 10px 10px;
+    font-size: 15px;
+    color: #595959;
+}
+.re-movie-box {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid #eee;
+}
+.select-movie-box {
+    justify-content: space-around;
+}
+.re-theater {
+    display: flex;
+}
+.re-theater > div {
+    width: 150px;
+}
+.re-theater > div:first-child {
+    border-right: 1px solid #eee;
+}
+.re-theater > div:last-child {
+    padding: 0 10px;
+    overflow-y: scroll;
+}
+.re-theater > div > p {
+    font-size: 14px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.re-time-tab > li {
+    padding: 0 10px;
+}
+.re-calendar > li,
+.re-font {
+    padding: 5px;
+}
+.re-time-line {
+    display: flex;
+    padding: 5px 18px;
+    width: 100%;
+    justify-content: space-around;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.re-time-line-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+    text-align: center;
+    font-size: 15px;
+    color: #595959;
+}
+.re-time-line-text {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.re-bottom-box {
+    display: flex;
+}
+.re-bottom-box > div {
+    padding: 8px 15px 8px 15px;
+    border-right: 2px solid #eee;
+}
+.re-bottom-box > div:last-child {
+    border-right: none;
+    padding: 0;
+}
+.re-time-line-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.re-time-line-title > p {
+    padding-top: 8px;
+    padding-left: 15px;
+}
+.re-bottom-box > div > p,
+.re-time-line-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+.re-time-line-title > div > span {
+    font-size: 13px;
+    margin-left: 3px;
+    margin-right: 5px;
+}
+.re-time-line-title > div {
+    margin-top: 5px;
+}
+.re-time-line-title > div > span:last-child {
+    margin-right: 0;
+}
+.back-grey {
+    background-color: #ddd;
+}
+.click-movie {
+    background-color: #595959;
+    color: #fff;
+}
+.select-movies {
+    border: 1px solid #eee;
+    width: 60px;
+    margin-right: 10px;
+}
+.select-movies:last-child {
+    margin-right: 0;
+}

@@ -2,6 +2,7 @@
 @import "./register.css";
 @import "./login.css";
 @import "./movie.css";
+@import "./reservation.css";
 
 .flex {
   display: flex;

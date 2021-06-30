@@ -17,16 +17,21 @@ import {
   faTicketAlt,
   faChevronDown,
   faChevronUp,
+  faChevronLeft,
+  faChevronRight,
   faHeart,
   faHome,
   faMouse,
   faShareAlt,
   faBookOpen,
-  faUsers
+  faUsers,
+  faMugHot
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faHeart as farHeart,
-  faCalendarAlt as farCalendar
+  faCalendarAlt as farCalendar,
+  faSun as farSun,
+  faMoon as farMoon
 } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { getStorage } from './common/utils'
@@ -46,12 +51,17 @@ library.add(
   faTicketAlt,
   faChevronDown,
   faChevronUp,
+  faChevronLeft,
+  faChevronRight,
   faHeart,
   faHome,
   faMouse,
   faShareAlt,
   faBookOpen,
-  faUsers
+  faUsers,
+  farSun,
+  faMugHot,
+  farMoon
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
