@@ -26,3 +26,11 @@ export function contentLength (value) {
   }
   return value
 }
+
+export function movieTitleLength (value) {
+  if (value.length > 15) {
+    value = value.slice(0, 15)
+    return value + '...'
+  }
+  return value
+}

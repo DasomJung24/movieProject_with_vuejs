@@ -1,5 +1,6 @@
 <template>
   <div>
+    <FixBreadcrumb v-if="scroll >= 90" :data="breadcrumb" />
     <Breadcrumb :data="breadcrumb" />
     <div class="main-container">
       <h1 style="font-weight: 500">빠른예매</h1>
@@ -23,7 +24,7 @@
               <div
                   v-for="movie in movieList"
                   :key="movie.id"
-                  :class="clickedMovie === movie.id ? 'click-movie' : ''"
+                  :class="clickedMovie === movie.id ? 'click' : ''"
                   @click="handleMovie(movie.id)"
               >
                 <div>
@@ -31,7 +32,7 @@
                   <img v-else-if="movie.audience_rating === '12세이상관람가'" src="@/assets/blue-rating.png" width="20" />
                   <img v-else-if="movie.audience_rating === '15세이상관람가'" src="@/assets/yellow-rating.png" width="20" />
                   <img v-else src="@/assets/red-rating.png" width="20" />
-                  <p class="re-movie-title">{{ movie.title }}</p>
+                  <p class="re-movie-title">{{ movie.title|movieTitleLength }}</p>
                 </div>
                 <font-awesome-icon v-if="!movie.user_like" :icon="['far', 'heart']" color="#ddd" size="sm"/>
                 <font-awesome-icon v-else icon="heart" />
@@ -45,7 +46,7 @@
             </div>
             <div v-else class="select-movie-box">
               <div v-for="index in 3" :key="index" class="select-movies">
-                <img v-if="selectedMovieList[index-1]" :src="handleSrc(index - 1)" width="60px" height="98px"/>
+                <img v-if="selectedMovieList[index-1]" :src="handleSrc(index - 1)" width="60px" height="88px"/>
                 <span v-else>+</span>
               </div>
             </div>
@@ -66,13 +67,31 @@
                 >{{ key }}({{ item.length }})</p>
               </div>
               <div v-if="theaters" >
-                <p v-for="item in theaters" :key="item.id">{{ item.name }}</p>
+                <p
+                    v-for="item in theaters"
+                    :key="item.id"
+                    :class="clickedTheater === item.id ? 'click' : ''"
+                    @click="handleTheater(item.id, item.name)"
+                >{{ item.name }}</p>
               </div>
             </div>
-            <div class="re-movie-box">
-              <div v-if="!selectedTheater">
+            <div v-if="!selectedTheater" class="re-movie-box">
+              <div>
                 <p>전체극장</p>
                 <p>목록에서 극장을 선택하세요.</p>
+              </div>
+            </div>
+            <div v-else class="select-theater-box">
+              <div
+                  v-for="index in 3"
+                  :key="index" class="select-theaters"
+                  :class="selectedTheaterList[index - 1] ? 'background-eee' : ''"
+              >
+                <div v-if="selectedTheaterList[index - 1]" class="theater-x">x</div>
+                <div v-if="selectedTheaterList[index - 1]">
+                  {{ selectedTheaterList[index - 1] }}
+                </div>
+                <span v-else>+</span>
               </div>
             </div>
           </div>
@@ -124,13 +143,16 @@
 </template>
 <script>
 import Breadcrumb from '../../components/Breadcrumb'
+import FixBreadcrumb from '../../components/FixBreadcrumb'
 export default {
   components: {
-    Breadcrumb
+    Breadcrumb,
+    FixBreadcrumb
   },
   data () {
     return {
       breadcrumb: ['예매', '빠른예매'],
+      scroll: '',
       date: null,
       month: null,
       year: null,
@@ -141,11 +163,15 @@ export default {
       movieList: [],
       selectedMovie: false,
       theaterList: {},
-      selectedTheater: '',
+      selectedTheater: false,
       theaters: [],
       clickedKey: '',
       clickedMovie: '',
-      selectedMovieList: []
+      clickedTheater: '',
+      selectedMovieList: [],
+      selectedMovieIds: [],
+      selectedTheaterList: [],
+      selectedTheaterIds: []
     }
   },
   created () {
@@ -154,7 +180,17 @@ export default {
     this.getTheaterList()
     this.getToday()
   },
+  mounted () {
+    window.addEventListener('scroll', this.onScroll)
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.onScroll)
+  },
   methods: {
+    onScroll (e) {
+      this.scroll = window.top.scrollY
+      console.log(this.scroll)
+    },
     getToday () {
       var today = new Date()
       const i = today.getDay()
@@ -178,7 +214,6 @@ export default {
     async getMovieList () {
       const { data } = await this.axios.get('movies?is_open=true&list=true')
       this.movieList = data
-      console.log(data)
     },
     async getTheaterList () {
       const { data } = await this.axios.get('theaters')
@@ -203,13 +238,29 @@ export default {
     handleMovie (id) {
       this.selectedMovie = true
       this.clickedMovie = id
-      const imageList = this.movieList.filter(i => i.id === id)[0].images
-      for (var j = 0; j < imageList.length; j++) {
-        if (imageList[j].type === 1) {
-          this.selectedMovieList.push(imageList[j].url)
+      const movieId = this.selectedMovieIds.filter(i => i === id)
+      if (movieId.length) {
+        alert('이미 선택한 영화입니다.')
+      } else {
+        this.selectedMovieIds.push(id)
+        const imageList = this.movieList.filter(i => i.id === id)[0].images
+        for (var j = 0; j < imageList.length; j++) {
+          if (imageList[j].type === 1) {
+            this.selectedMovieList.push(imageList[j].url)
+          }
         }
       }
-      console.log(this.selectedMovieList)
+    },
+    handleTheater (id, name) {
+      this.selectedTheater = true
+      this.clickedTheater = id
+      const TheaterId = this.selectedTheaterIds.filter(i => i === id)
+      if (TheaterId.length) {
+        alert('이미 선택한 극장입니다.')
+      } else {
+        this.selectedTheaterIds.push(id)
+        this.selectedTheaterList.push(name)
+      }
     },
     handleSrc (i) {
       return this.selectedMovieList[i]
