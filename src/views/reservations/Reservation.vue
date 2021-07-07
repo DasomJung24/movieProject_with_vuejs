@@ -171,7 +171,10 @@ export default {
       selectedMovieList: [],
       selectedMovieIds: [],
       selectedTheaterList: [],
-      selectedTheaterIds: []
+      selectedTheaterIds: [],
+      reDay: '2021-07-02',
+      moviesForDay: [],
+      isDay: false
     }
   },
   created () {
@@ -207,17 +210,28 @@ export default {
       today = this.year + '-' + this.month + '-' + this.date
       console.log(today)
     },
-    // async getScreening () {
-    //   const { data } = await this.axios.get('theaters/screenings')
-    //   console.log(data)
-    // },
     async getMovieList () {
       const { data } = await this.axios.get('movies?is_open=true&list=true')
       this.movieList = data
+      console.log(data.length)
     },
     async getTheaterList () {
       const { data } = await this.axios.get('theaters')
       this.theaterList = data
+    },
+    async getDayMovieList () {
+      const params = { date: this.reDay }
+      const { data } = await this.axios.get('theaters/movies', { params })
+      this.moviesForDay = data
+      console.log(data)
+      for (var i = 0; i < this.movieList.length; i++) {
+        console.log(this.movieList[i])
+        console.log(this.movieList[i].id)
+        const movieId = this.movieList[i].id
+        const isActive = this.moviesForDay.filter(i => i.movie_id === movieId)
+        this.movieList[i].isDay = !!isActive.length
+        console.log(this.movieList[i].isDay)
+      }
     },
     setActiveMovie (val) {
       this.setActiveMovieItem = val
@@ -236,6 +250,9 @@ export default {
       this.clickedKey = key
     },
     handleMovie (id) {
+      if (!this.selectedMovieList.length) {
+        this.getDayMovieList()
+      }
       this.selectedMovie = true
       this.clickedMovie = id
       const movieId = this.selectedMovieIds.filter(i => i === id)
@@ -251,7 +268,7 @@ export default {
         }
       }
     },
-    handleTheater (id, name) {
+    async handleTheater (id, name) {
       this.selectedTheater = true
       this.clickedTheater = id
       const TheaterId = this.selectedTheaterIds.filter(i => i === id)
@@ -260,10 +277,20 @@ export default {
       } else {
         this.selectedTheaterIds.push(id)
         this.selectedTheaterList.push(name)
+        const params = {
+          movie_ids: this.selectedMovieIds,
+          theater_ids: this.selectedTheaterIds,
+          date: '2021-07-01'
+        }
+        const { data } = await this.axios.get('theaters/screenings', { params })
+        console.log(data)
       }
     },
     handleSrc (i) {
       return this.selectedMovieList[i]
+    },
+    handleIsDay (isDay) {
+      this.isDay = isDay
     }
   }
 }
