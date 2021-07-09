@@ -4,6 +4,7 @@ import router from './router'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import VueMoment from 'vue-moment'
+import VueI18n from 'vue-i18n'
 import * as filters from './common/filters'
 import './common/api'
 import '@/common/validation/vee-validate.js'
@@ -39,6 +40,7 @@ import { ID_TOKEN_KEY } from './store/constant'
 
 Vue.use(VueRouter)
 Vue.use(VueMoment)
+Vue.use(VueI18n)
 
 library.add(
   faSearch,
@@ -82,7 +84,26 @@ const authentication = () => {
 
 authentication()
 
+const messages = {
+  en: {
+    messages: {
+      sunday: 'Su'
+    }
+  },
+  ko: {
+    message: {
+      sunday: '일'
+    }
+  }
+}
+
+const i18n = new VueI18n({
+  locale: 'ko',
+  messages
+})
+
 new Vue({
+  i18n,
   store,
   router,
   render: h => h(App)

@@ -6,15 +6,16 @@
       <h1 style="font-weight: 500">빠른예매</h1>
       <div class="reservation-box">
         <div class="re-calendar-bar">
-            <VueHorizontalCalendar
-                lang="en"
-                swipeSpace="1"
-                choosedItemColor="rgba(60, 130, 235, 0.03)"
-                todayItemColor="#fff"
-                :showBorderTop="false"
-                :minDate="minDate"
-                v-on:swipeClick="arrowClick"
-            ></VueHorizontalCalendar>
+<!--            <VueHorizontalCalendar-->
+<!--                lang="en"-->
+<!--                swipeSpace="1"-->
+<!--                choosedItemColor="rgba(60, 130, 235, 0.03)"-->
+<!--                todayItemColor="#fff"-->
+<!--                :showBorderTop="false"-->
+<!--                :minDate="minDate"-->
+<!--                v-on:swipeClick="arrowClick"-->
+<!--            ></VueHorizontalCalendar>-->
+          <HorizontalCalendar />
           <div>
             <font-awesome-icon icon="calendar-alt" size="lg" color="#666" class="re-font"/>
           </div>
@@ -150,12 +151,14 @@
 <script>
 import Breadcrumb from '../../components/Breadcrumb'
 import FixBreadcrumb from '../../components/FixBreadcrumb'
-import VueHorizontalCalendar from 'vue-horizontal-calendar'
+import HorizontalCalendar from '../../components/HorizontalCalendar'
+// import VueHorizontalCalendar from 'vue-horizontal-calendar'
 export default {
   components: {
     Breadcrumb,
     FixBreadcrumb,
-    VueHorizontalCalendar
+    // VueHorizontalCalendar
+    HorizontalCalendar
   },
   data () {
     return {
@@ -190,8 +193,9 @@ export default {
   mounted () {
     window.addEventListener('scroll', this.onScroll)
   },
-  beforeUpdate () {
+  updated () {
     this.handleWeekend()
+    // this.handleLanguage()
   },
   beforeDestroy () {
     window.removeEventListener('scroll', this.onScroll)
@@ -291,22 +295,30 @@ export default {
     },
     arrowClick (type) {
       if (type === 'right') {
-        console.log(type)
+        this.handleWeekend()
       }
     },
     handleWeekend () {
       const className = document.getElementsByClassName('date-item-weekend')
-      console.log(className.length)
       for (var i = 0; i < className.length; i++) {
         const day = className[i].getElementsByClassName('date-item-day').item(0)
         const date = className[i].getElementsByClassName('date-item-date').item(0)
-        console.log(day.innerHTML, date.innerHTML)
         if (day.innerHTML === 'Sa') {
           day.className += ' blue'
           date.className += ' blue'
-        } else if 
+        } else if (day.innerHTML === 'Su') {
+          day.className += ' red'
+          date.className += ' red'
+        }
       }
     }
+    // handleLanguage () {
+    //   const className = document.getElementsByClassName('date-item-day')
+    //   for (var i = 0; i < className.length; i++) {
+    //     console.log(className[i].innerHTML)
+    //     // className[i].innerHTML = this.(className[i].innerHTML)
+    //   }
+    // }
   }
 }
 </script>

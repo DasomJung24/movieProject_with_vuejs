@@ -34,3 +34,21 @@ export function movieTitleLength (value) {
   }
   return value
 }
+
+export function translateDay (value) {
+  if (value === 'Sunday') {
+    return '일'
+  } else if (value === 'Monday') {
+    return '월'
+  } else if (value === 'Tuesday') {
+    return '화'
+  } else if (value === 'Wednesday') {
+    return '수'
+  } else if (value === 'Thursday') {
+    return '목'
+  } else if (value === 'Friday') {
+    return '금'
+  } else {
+    return '토'
+  }
+}
