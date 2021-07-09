@@ -8,19 +8,19 @@
 }
 .re-calendar-bar {
     display: flex;
-    /*justify-content: space-around;*/
     border-bottom: 1px solid #ddd;
 }
+.re-calendar-bar > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+}
 .re-movie-tab,
-.re-calendar,
 .re-theater-tab,
 .re-time-tab {
     display: flex;
     list-style: none;
-}
-.re-calendar {
-    width: calc(100% - 70px);
-    justify-content: space-around;
 }
 .re-movie-tab > li,
 .re-theater-tab > li {
@@ -106,7 +106,6 @@
 .re-time-tab > li {
     padding: 0 10px;
 }
-.re-calendar > li,
 .re-font {
     padding: 5px;
 }
@@ -227,4 +226,58 @@
     background-color: #fff;
     font-size: 20px;
     color: #aaaaaa;
+}
+.horizontal-calendar {
+    width: calc(100% - 50px) !important;
+    height: 40px;
+}
+.horizontal-calendar .date-list {
+    height: 40px;
+}
+.horizontal-calendar .date-item {
+    width: 70px !important;
+    height: 40px !important;
+    border-right: none !important;
+}
+.horizontal-calendar .choosed-day .date-item-date {
+    color: #000 !important;
+}
+.horizontal-calendar .choosed-day .date-item-day {
+    color: #999 !important;
+}
+.date-item > div {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.horizontal-calendar .choosed-day {
+    border-bottom: 2px solid #483d8b !important;
+}
+.horizontal-calendar .left-arrow,
+.horizontal-calendar .right-arrow {
+    line-height: 40px !important;
+    background-color: #fff !important;
+    border-left: none !important;
+}
+.horizontal-calendar .left-arrow {
+    border-right: none !important;
+}
+.horizontal-calendar .right-arrow {
+    padding-right: 15px !important;
+    width: 40px !important;
+    padding-left: 2px !important;
+}
+/*.horizontal-calendar .first-day {*/
+/*    background: none !important;*/
+/*    width: 50px !important;*/
+/*    top: -10px !important;*/
+/*}*/
+/*.horizontal-calendar .first-day p {*/
+/*    color: #000 !important;*/
+/*    font-size: 15px !important;*/
+/*}*/
+.blue {
+    color: #2750f5;
 }

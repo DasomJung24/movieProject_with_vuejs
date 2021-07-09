@@ -6,12 +6,18 @@
       <h1 style="font-weight: 500">빠른예매</h1>
       <div class="reservation-box">
         <div class="re-calendar-bar">
-          <font-awesome-icon icon="chevron-left" color="#aaa" class="re-font"/>
-          <ul class="re-calendar">
-            <li v-for="i in 14" :key="i">{{ i }}</li>
-          </ul>
-          <font-awesome-icon icon="chevron-right" color="#aaa" class="re-font"/>
-          <font-awesome-icon icon="calendar-alt" size="lg" color="#595959" class="re-font"/>
+            <VueHorizontalCalendar
+                lang="en"
+                swipeSpace="1"
+                choosedItemColor="rgba(60, 130, 235, 0.03)"
+                todayItemColor="#fff"
+                :showBorderTop="false"
+                :minDate="minDate"
+                v-on:swipeClick="arrowClick"
+            ></VueHorizontalCalendar>
+          <div>
+            <font-awesome-icon icon="calendar-alt" size="lg" color="#666" class="re-font"/>
+          </div>
         </div>
         <div class="re-bottom-box">
           <div>
@@ -24,7 +30,7 @@
               <div
                   v-for="movie in movieList"
                   :key="movie.id"
-                  :class="clickedMovie === movie.id ? 'click' : ''"
+                  :class="[clickedMovie === movie.id ? 'click' : '', movie.isDay ? '' : 'opacity']"
                   @click="handleMovie(movie.id)"
               >
                 <div>
@@ -144,19 +150,18 @@
 <script>
 import Breadcrumb from '../../components/Breadcrumb'
 import FixBreadcrumb from '../../components/FixBreadcrumb'
+import VueHorizontalCalendar from 'vue-horizontal-calendar'
 export default {
   components: {
     Breadcrumb,
-    FixBreadcrumb
+    FixBreadcrumb,
+    VueHorizontalCalendar
   },
   data () {
     return {
       breadcrumb: ['예매', '빠른예매'],
       scroll: '',
-      date: null,
-      month: null,
-      year: null,
-      day: null,
+      minDate: '',
       dayList: { 0: '일', 1: '월', 2: '화', 3: '수', 4: '목', 5: '금', 6: '토' },
       setActiveMovieItem: 'total',
       setActiveTheaterItem: 'total',
@@ -173,18 +178,20 @@ export default {
       selectedTheaterList: [],
       selectedTheaterIds: [],
       reDay: '2021-07-02',
-      moviesForDay: [],
-      isDay: false
+      moviesForDay: []
     }
   },
   created () {
-    // this.getScreening()
     this.getMovieList()
     this.getTheaterList()
     this.getToday()
+    this.handleMinDate()
   },
   mounted () {
     window.addEventListener('scroll', this.onScroll)
+  },
+  beforeUpdate () {
+    this.handleWeekend()
   },
   beforeDestroy () {
     window.removeEventListener('scroll', this.onScroll)
@@ -192,28 +199,18 @@ export default {
   methods: {
     onScroll (e) {
       this.scroll = window.top.scrollY
-      console.log(this.scroll)
     },
     getToday () {
-      var today = new Date()
-      const i = today.getDay()
-      this.day = this.dayList[i]
-      this.date = today.getDate()
-      if (this.date < 10) {
-        this.date = '0' + this.date
-      }
-      this.month = today.getMonth() + 1
-      if (this.month < 10) {
-        this.month = '0' + this.month
-      }
-      this.year = today.getFullYear()
-      today = this.year + '-' + this.month + '-' + this.date
-      console.log(today)
+      const today = new Date()
+      const year = today.getFullYear()
+      const month = today.getMonth() + 1
+      const date = today.getDate()
+      const todayDate = year + '/' + month + '/' + date
+      console.log(todayDate)
     },
     async getMovieList () {
       const { data } = await this.axios.get('movies?is_open=true&list=true')
-      this.movieList = data
-      console.log(data.length)
+      this.movieList = data.map(i => ({ ...i, isDay: true }))
     },
     async getTheaterList () {
       const { data } = await this.axios.get('theaters')
@@ -223,14 +220,10 @@ export default {
       const params = { date: this.reDay }
       const { data } = await this.axios.get('theaters/movies', { params })
       this.moviesForDay = data
-      console.log(data)
       for (var i = 0; i < this.movieList.length; i++) {
-        console.log(this.movieList[i])
-        console.log(this.movieList[i].id)
         const movieId = this.movieList[i].id
         const isActive = this.moviesForDay.filter(i => i.movie_id === movieId)
         this.movieList[i].isDay = !!isActive.length
-        console.log(this.movieList[i].isDay)
       }
     },
     setActiveMovie (val) {
@@ -289,8 +282,30 @@ export default {
     handleSrc (i) {
       return this.selectedMovieList[i]
     },
-    handleIsDay (isDay) {
-      this.isDay = isDay
+    handleMinDate () {
+      const today = new Date()
+      const year = today.getFullYear()
+      const month = today.getMonth() + 1
+      const date = today.getDate()
+      this.minDate = year + '/' + month + '/' + date
+    },
+    arrowClick (type) {
+      if (type === 'right') {
+        console.log(type)
+      }
+    },
+    handleWeekend () {
+      const className = document.getElementsByClassName('date-item-weekend')
+      console.log(className.length)
+      for (var i = 0; i < className.length; i++) {
+        const day = className[i].getElementsByClassName('date-item-day').item(0)
+        const date = className[i].getElementsByClassName('date-item-date').item(0)
+        console.log(day.innerHTML, date.innerHTML)
+        if (day.innerHTML === 'Sa') {
+          day.className += ' blue'
+          date.className += ' blue'
+        } else if 
+      }
     }
   }
 }

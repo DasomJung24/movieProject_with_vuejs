@@ -2,7 +2,7 @@
   <div :class="$route.name === 'MainList' ? 'nav-bar-main' : 'nav-bar'" @mouseleave="handleProps">
     <div>
       <div class="movie-bar" v-if="data === 'movie'">
-        <div v-for="movie in movies" :key="movie">
+        <div v-for="movie in movies" :key="movie" @click="handleMovie(movie)">
           <span class="nav-bar-text">{{ movie }}</span>
         </div>
       </div>
@@ -45,6 +45,11 @@ export default {
   methods: {
     handleProps () {
       this.$emit('deleteProps')
+    },
+    handleMovie (movie) {
+      if (movie === '전체영화') {
+        this.$router.push({ name: 'MovieList' })
+      }
     }
   }
 }
