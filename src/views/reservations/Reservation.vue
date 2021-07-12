@@ -6,16 +6,7 @@
       <h1 style="font-weight: 500">빠른예매</h1>
       <div class="reservation-box">
         <div class="re-calendar-bar">
-<!--            <VueHorizontalCalendar-->
-<!--                lang="en"-->
-<!--                swipeSpace="1"-->
-<!--                choosedItemColor="rgba(60, 130, 235, 0.03)"-->
-<!--                todayItemColor="#fff"-->
-<!--                :showBorderTop="false"-->
-<!--                :minDate="minDate"-->
-<!--                v-on:swipeClick="arrowClick"-->
-<!--            ></VueHorizontalCalendar>-->
-          <HorizontalCalendar />
+          <HorizontalCalendar @movieListForDay="movieListForDay"/>
           <div>
             <font-awesome-icon icon="calendar-alt" size="lg" color="#666" class="re-font"/>
           </div>
@@ -152,12 +143,10 @@
 import Breadcrumb from '../../components/Breadcrumb'
 import FixBreadcrumb from '../../components/FixBreadcrumb'
 import HorizontalCalendar from '../../components/HorizontalCalendar'
-// import VueHorizontalCalendar from 'vue-horizontal-calendar'
 export default {
   components: {
     Breadcrumb,
     FixBreadcrumb,
-    // VueHorizontalCalendar
     HorizontalCalendar
   },
   data () {
@@ -188,14 +177,9 @@ export default {
     this.getMovieList()
     this.getTheaterList()
     this.getToday()
-    this.handleMinDate()
   },
   mounted () {
     window.addEventListener('scroll', this.onScroll)
-  },
-  updated () {
-    this.handleWeekend()
-    // this.handleLanguage()
   },
   beforeDestroy () {
     window.removeEventListener('scroll', this.onScroll)
@@ -286,39 +270,10 @@ export default {
     handleSrc (i) {
       return this.selectedMovieList[i]
     },
-    handleMinDate () {
-      const today = new Date()
-      const year = today.getFullYear()
-      const month = today.getMonth() + 1
-      const date = today.getDate()
-      this.minDate = year + '/' + month + '/' + date
-    },
-    arrowClick (type) {
-      if (type === 'right') {
-        this.handleWeekend()
-      }
-    },
-    handleWeekend () {
-      const className = document.getElementsByClassName('date-item-weekend')
-      for (var i = 0; i < className.length; i++) {
-        const day = className[i].getElementsByClassName('date-item-day').item(0)
-        const date = className[i].getElementsByClassName('date-item-date').item(0)
-        if (day.innerHTML === 'Sa') {
-          day.className += ' blue'
-          date.className += ' blue'
-        } else if (day.innerHTML === 'Su') {
-          day.className += ' red'
-          date.className += ' red'
-        }
-      }
+    movieListForDay (data) {
+      console.log(data)
+      this.movieList = data
     }
-    // handleLanguage () {
-    //   const className = document.getElementsByClassName('date-item-day')
-    //   for (var i = 0; i < className.length; i++) {
-    //     console.log(className[i].innerHTML)
-    //     // className[i].innerHTML = this.(className[i].innerHTML)
-    //   }
-    // }
   }
 }
 </script>
