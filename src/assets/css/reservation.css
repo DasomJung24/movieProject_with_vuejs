@@ -288,21 +288,24 @@
     width: 1050px;
     display: flex;
     align-items: center;
-}
-.calendar > div {
-    width: 1470px;
+    cursor: pointer;
+    position: relative;
 }
 .horizontal-calendar {
-    width: 100%;
+    width: 1470px;
     height: 40px;
+    white-space: nowrap;
     overflow-x: hidden;
 }
 .horizontal-calendar > div {
     width: 70px;
-    height: 40px;
-    float: left;
-    text-align: center;
+    height: 28px;
     padding-top: 10px;
+    display: inline-block;
+    text-align: center;
+}
+.horizontal-calendar > div:hover {
+    border-bottom: 2px solid #483d8b;
 }
 .horizontal-calendar > div > span:first-child {
     font-size: 17px;
@@ -310,14 +313,9 @@
 .horizontal-calendar > div > span:last-child {
     font-size: 14px;
 }
-.horizontal-calendar::after {
-    content: '';
-    clear: both;
-    display: block;
-}
 .ca-left-arrow {
-    padding-left: 5px;
-    padding-right: 10px;
+    padding-left: 10px;
+    padding-right: 15px;
 }
 .ca-right-arrow {
     padding-right: 20px;
@@ -334,4 +332,19 @@
 .horizontal-calendar > div > span:nth-child(2) {
     font-size: 15px;
     padding: 0 2px;
+}
+.calendar-month {
+    position: absolute;
+    top: -10px;
+    left: 35px;
+    font-size: 13px;
+    background-color: #fff;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    color: #595959;
+}
+.select-day {
+    background-color: #F5F5F5;
+    border-bottom: 2px solid #483d8b;
 }

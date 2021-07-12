@@ -1,15 +1,19 @@
 <template>
   <div class="calendar">
+    <div class="calendar-month">
+      {{ dateList[0][0] }}.{{ dateList[0][1] }}
+    </div>
     <font-awesome-icon icon="chevron-left" class="ca-left-arrow" color="#aaa"/>
-    <div>
       <div class="horizontal-calendar">
         <div
             v-for="(date, index) in dateList"
             :key="date[2]"
             :class="[
                 date[3] === 'Saturday' ? 'blue' : '',
-                date[3] === 'Sunday' ? 'red' : ''
+                date[3] === 'Sunday' ? 'red' : '',
+                date[2] === selectedDay ? 'select-day' : ''
                ]"
+            @click="selectedDay = date[2]"
         >
           <span>{{ date[2] }}</span>
           <span>&#183;</span>
@@ -17,9 +21,8 @@
           <span v-else-if="index===1">내일</span>
           <span v-else>{{ date[3]|translateDay }}</span>
         </div>
-      </div>
     </div>
-    <font-awesome-icon icon="chevron-right" class="ca-right-arrow" color="#aaa"/>
+    <font-awesome-icon icon="chevron-right" class="ca-right-arrow" color="#aaa" />
   </div>
 </template>
 <script>
@@ -30,7 +33,10 @@ export default {
   },
   data () {
     return {
-      dateList: []
+      dateList: [],
+      selectedDay: '12',
+      rightOn: false,
+      leftOn: false
     }
   },
   methods: {
