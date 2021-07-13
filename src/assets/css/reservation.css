@@ -286,7 +286,7 @@
     border: 1px solid #ddd;
     border-radius: 20px;
     color: #595959;
-    z-index: 999;
+    z-index: 9;
 }
 .select-day {
     background-color: #F5F5F5;

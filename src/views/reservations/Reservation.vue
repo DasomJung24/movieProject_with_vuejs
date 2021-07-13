@@ -170,7 +170,8 @@ export default {
       selectedTheaterList: [],
       selectedTheaterIds: [],
       reDay: '2021-07-02',
-      moviesForDay: []
+      moviesForDay: [],
+      firstClick: false
     }
   },
   created () {
@@ -203,7 +204,7 @@ export default {
       const { data } = await this.axios.get('theaters')
       this.theaterList = data
     },
-    async getDayMovieList () {
+    async getDayMovieList (id) {
       const params = { date: this.reDay }
       const { data } = await this.axios.get('theaters/movies', { params })
       this.moviesForDay = data
@@ -212,6 +213,8 @@ export default {
         const isActive = this.moviesForDay.filter(i => i.movie_id === movieId)
         this.movieList[i].isDay = !!isActive.length
       }
+      this.firstClick = true
+      this.handleMovie(id)
     },
     setActiveMovie (val) {
       this.setActiveMovieItem = val
@@ -230,20 +233,25 @@ export default {
       this.clickedKey = key
     },
     handleMovie (id) {
-      if (!this.selectedMovieList.length) {
-        this.getDayMovieList()
-      }
-      this.selectedMovie = true
-      this.clickedMovie = id
-      const movieId = this.selectedMovieIds.filter(i => i === id)
-      if (movieId.length) {
-        alert('이미 선택한 영화입니다.')
+      if (!this.firstClick) {
+        this.getDayMovieList(id)
       } else {
-        this.selectedMovieIds.push(id)
-        const imageList = this.movieList.filter(i => i.id === id)[0].images
-        for (var j = 0; j < imageList.length; j++) {
-          if (imageList[j].type === 1) {
-            this.selectedMovieList.push(imageList[j].url)
+        const movie = this.movieList.filter(i => i.id === id)
+        if (!movie[0].isDay) {
+          return alert('해당 날짜에 예매할 수 있는 영화가 아닙니다.')
+        }
+        this.selectedMovie = true
+        this.clickedMovie = id
+        const movieId = this.selectedMovieIds.filter(i => i === id)
+        if (movieId.length) {
+          alert('이미 선택한 영화입니다.')
+        } else {
+          this.selectedMovieIds.push(id)
+          const imageList = this.movieList.filter(i => i.id === id)[0].images
+          for (var j = 0; j < imageList.length; j++) {
+            if (imageList[j].type === 1) {
+              this.selectedMovieList.push(imageList[j].url)
+            }
           }
         }
       }
