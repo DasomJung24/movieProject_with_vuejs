@@ -38,7 +38,7 @@ export default {
   data () {
     return {
       dateList: [],
-      selectedDay: '12',
+      selectedDay: '',
       back: false,
       dist: 0,
       tempDateList: []
@@ -53,6 +53,7 @@ export default {
           moment(this.dateList[-1]).add(i, 'days').format('YYYY,MM,DD,dddd').split(',')
         )
       }
+      this.selectedDay = this.dateList[0][2]
     },
     next () {
       this.back = false
@@ -65,9 +66,9 @@ export default {
     async handleDay (selectedDate) {
       this.selectedDay = selectedDate[2]
       const params = { date: selectedDate[0] + '-' + selectedDate[1] + '-' + selectedDate[2] }
-      const { data } = await this.axios.get('theaters/screenings', { params })
+      const { data } = await this.axios.get('theaters/movies', { params })
       console.log(data)
-      this.$emit('movieListForDay', data)
+      this.$emit('movieListForDay', { data: data, date: params.date })
     }
   }
 }

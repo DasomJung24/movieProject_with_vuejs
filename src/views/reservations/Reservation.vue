@@ -143,6 +143,7 @@
 import Breadcrumb from '../../components/Breadcrumb'
 import FixBreadcrumb from '../../components/FixBreadcrumb'
 import HorizontalCalendar from '../../components/HorizontalCalendar'
+import moment from 'moment'
 export default {
   components: {
     Breadcrumb,
@@ -153,7 +154,6 @@ export default {
     return {
       breadcrumb: ['예매', '빠른예매'],
       scroll: '',
-      minDate: '',
       dayList: { 0: '일', 1: '월', 2: '화', 3: '수', 4: '목', 5: '금', 6: '토' },
       setActiveMovieItem: 'total',
       setActiveTheaterItem: 'total',
@@ -176,7 +176,6 @@ export default {
   created () {
     this.getMovieList()
     this.getTheaterList()
-    this.getToday()
   },
   mounted () {
     window.addEventListener('scroll', this.onScroll)
@@ -188,16 +187,16 @@ export default {
     onScroll (e) {
       this.scroll = window.top.scrollY
     },
-    getToday () {
-      const today = new Date()
-      const year = today.getFullYear()
-      const month = today.getMonth() + 1
-      const date = today.getDate()
-      const todayDate = year + '/' + month + '/' + date
-      console.log(todayDate)
+    getDay () {
+      const day = moment().format('YYYY-MM-D')
+      return day
     },
     async getMovieList () {
-      const { data } = await this.axios.get('movies?is_open=true&list=true')
+      const params = {
+        is_open: this.getDay(),
+        list: true
+      }
+      const { data } = await this.axios.get('movies', { params })
       this.movieList = data.map(i => ({ ...i, isDay: true }))
     },
     async getTheaterList () {
@@ -270,9 +269,24 @@ export default {
     handleSrc (i) {
       return this.selectedMovieList[i]
     },
-    movieListForDay (data) {
-      console.log(data)
-      this.movieList = data
+    async movieListForDay (dataOb) {
+      console.log(dataOb)
+      const movieList = dataOb.data
+      const date = dataOb.date
+      if (date === this.getDay()) {
+        this.getMovieList()
+        return
+      }
+      this.movieList = []
+      const { data } = await this.axios.get(`movies?is_open=${date}&list=true`)
+      for (var i = 0; i < data.length; i++) {
+        const movie = movieList.filter(p => p.movie_id === data[i].id)
+        if (movie.length) {
+          this.movieList.push(data[i])
+        }
+      }
+      console.log(this.movieList)
+      this.movieList = this.movieList.map(i => ({ ...i, isDay: true }))
     }
   }
 }
