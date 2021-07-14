@@ -171,12 +171,14 @@ export default {
       selectedTheaterIds: [],
       reDay: '2021-07-02',
       moviesForDay: [],
-      firstClick: false
+      firstClick: false,
+      selectedDate: ''
     }
   },
   created () {
     this.getMovieList()
     this.getTheaterList()
+    this.getDay()
   },
   mounted () {
     window.addEventListener('scroll', this.onScroll)
@@ -190,11 +192,11 @@ export default {
     },
     getDay () {
       const day = moment().format('YYYY-MM-D')
-      return day
+      this.selectedDate = day
     },
     async getMovieList () {
       const params = {
-        is_open: this.getDay(),
+        is_open: true,
         list: true
       }
       const { data } = await this.axios.get('movies', { params })
@@ -232,7 +234,7 @@ export default {
       this.theaters = this.theaterList[key]
       this.clickedKey = key
     },
-    handleMovie (id) {
+    async handleMovie (id) {
       if (!this.firstClick) {
         this.getDayMovieList(id)
       } else {
@@ -253,6 +255,12 @@ export default {
               this.selectedMovieList.push(imageList[j].url)
             }
           }
+          const params = {
+            movie_ids: this.selectedMovieIds,
+            date: this.selectedDate
+          }
+          const { data } = await this.axios.get('theaters/screenings', { params })
+          console.log(data)
         }
       }
     },
@@ -280,13 +288,13 @@ export default {
     async movieListForDay (dataOb) {
       console.log(dataOb)
       const movieList = dataOb.data
-      const date = dataOb.date
-      if (date === this.getDay()) {
+      this.selectedDate = dataOb.date
+      if (this.selectedDate === this.getDay()) {
         this.getMovieList()
         return
       }
       this.movieList = []
-      const { data } = await this.axios.get(`movies?is_open=${date}&list=true`)
+      const { data } = await this.axios.get(`movies?is_open=${this.selectedDate}&list=true`)
       for (var i = 0; i < data.length; i++) {
         const movie = movieList.filter(p => p.movie_id === data[i].id)
         if (movie.length) {
